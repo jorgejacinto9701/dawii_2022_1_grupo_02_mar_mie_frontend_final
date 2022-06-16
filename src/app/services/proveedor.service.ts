@@ -25,4 +25,9 @@ registrarProveedor(data:Proveedor) : Observable<any>{
   return this.http.post(baseUrlProveedor,data);
 
 }
+listaProveedorAll(razonsocial:string, ruc:string, idUbigeo:number, estado:number):Observable<any> {
+  const params= new HttpParams().set("razonsocial",razonsocial).set("ruc", ruc).set("idUbigeo", idUbigeo).set("estado",estado);
+  return  this.http.get<any>(baseUrlProveedor+"/listaProveedorConParametros",{params});
+   }
+
 }
