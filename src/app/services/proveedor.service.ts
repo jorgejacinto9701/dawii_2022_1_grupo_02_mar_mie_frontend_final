@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Proveedor } from '../models/proveedor.model';
 import { AppSettings } from '../app.settings';
 
+
 const baseUrlUtil = AppSettings.API_ENDPOINT+ '/util';
 const baseUrlProveedor = AppSettings.API_ENDPOINT+ '/proveedor';
 
@@ -15,5 +16,13 @@ export class ProveedorService {
 
   constructor(private http: HttpClient) { }
 
-  
+ listaProveedor():Observable<Proveedor[]>{
+return this.http.get<Proveedor[]>(baseUrlUtil+"/listaProveedor");
+
+
+}
+registrarProveedor(data:Proveedor) : Observable<any>{
+  return this.http.post(baseUrlProveedor,data);
+
+}
 }
