@@ -30,5 +30,9 @@ listaProducto():Observable<string[]>{
 registraProducto(data:Producto):Observable<any>{
 return this.http.post(baseUrlProducto,data);
 }
+listaProductosAll(nombre:string,serie:string,durabilidad:string,estado:number):Observable<any>{
+  const params= new HttpParams().set("nombre",nombre).set("serie", serie).set("durabilidad", durabilidad).set("estado", estado);
+  return  this.http.get<any>(baseUrlProducto+"/listaProductoConParametros",{params});
+   }
+   
 }
-

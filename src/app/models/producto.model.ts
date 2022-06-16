@@ -11,6 +11,7 @@ export class Producto {
     stock?: number;
     marca?: Marca;
     pais?: Pais;
+    estado?:number;
     fechaRegistro ?: Date;
    }
 
