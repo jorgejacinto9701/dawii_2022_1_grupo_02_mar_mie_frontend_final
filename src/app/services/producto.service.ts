@@ -15,8 +15,20 @@ const baseUrlProducto = AppSettings.API_ENDPOINT+ '/producto';
 export class ProductoService {
 
   constructor(private http:HttpClient) { }
-
-
+ 
+  listaMarca():Observable<string[]>{
+    return this.http.get<string[]>(baseUrlUtil+"/listaMarca");
+  }
+listaPais():Observable<string[]>{
+  return this.http.get<string[]>(baseUrlUtil+"/listaPais");
 }
 
+listaProducto():Observable<string[]>{
+  return this.http.get<string[]>(baseUrlUtil+"/listaProducto");
+}
+
+registraProducto(data:Producto):Observable<any>{
+return this.http.post(baseUrlProducto,data);
+}
+}
 
