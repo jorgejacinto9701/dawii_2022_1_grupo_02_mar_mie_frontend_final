@@ -41,7 +41,6 @@ export class ConsultaSedeComponent implements OnInit {
     );
     this.selPais = -1;
   }
-  
   ngOnInit(): void {
   }
 
