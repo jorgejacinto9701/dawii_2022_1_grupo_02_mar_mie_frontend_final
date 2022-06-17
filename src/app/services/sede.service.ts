@@ -44,4 +44,22 @@ consultaSede(filtro:string):Observable<Sede[]>{
   return this.http.put<any>(baseUrlUtil+"/actualizaSede",aux);
  }
 
+ elimina(id: any): Observable<any>{
+  return this.http.delete(baseUrlUtil+"/eliminaSede/{id}",id);
+}
+
+ //CRUD
+ consultaDocente(fil : any) : Observable<any>{
+  return this.http.get("/porNombre/{filtro}"+fil);
+ }
+ registraSede(aux: Sede): Observable<any>{
+  return this.http.post("/registraSede", aux);
+ }
+ actualizaSede(aux: Sede): Observable<any>{
+  return this.http.put("/actualizaSede", aux);
+ }
+ eliminaSede(id: any): Observable<any>{
+  return this.http.delete("/eliminaSede/{id}",id);
+}
+
 }
