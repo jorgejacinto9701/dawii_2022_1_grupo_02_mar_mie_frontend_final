@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Sede } from '../models/sede.model';
 import { AppSettings } from '../app.settings';
+import { environment } from 'src/environments/environment';
 
 const baseUrlUtil = AppSettings.API_ENDPOINT+ '/util';
 const baseUrlSede = AppSettings.API_ENDPOINT+ '/sede';
@@ -11,6 +12,8 @@ const baseUrlSede = AppSettings.API_ENDPOINT+ '/sede';
   providedIn: 'root'
 })
 export class SedeService {
+
+  //private apiServerURL = environment.apiBaseURL;
 
   constructor(private http:HttpClient) {  }
 
@@ -32,7 +35,7 @@ listaSedeFiltro(nombre:string, direccion:string, idPais:number, estado:number):O
   return this.http.get<any>(baseUrlUtil + "/listaSedeConParametros", {params});
 }
 
-consultaSede(filtro:string):Observable<Sede[]>{
+consulta(filtro:string):Observable<Sede[]>{
   return this.http.get<Sede[]>(baseUrlUtil + "/listaSedePorNombreLike/" +filtro );
  }
 
@@ -49,7 +52,7 @@ consultaSede(filtro:string):Observable<Sede[]>{
 }
 
  //CRUD
- consultaDocente(fil : any) : Observable<any>{
+ consultaSede(fil : any) : Observable<any>{
   return this.http.get("/porNombre/{filtro}"+fil);
  }
  registraSede(aux: Sede): Observable<any>{
@@ -60,6 +63,22 @@ consultaSede(filtro:string):Observable<Sede[]>{
  }
  eliminaSede(id: any): Observable<any>{
   return this.http.delete("/eliminaSede/{id}",id);
+}
+
+listaSedeCrud(filtro:string):Observable<Sede[]> {
+  return this.http.get<Sede[]>(baseUrlUtil + "/url/crudSede/porNombre/"+ filtro);
+}  
+
+registraSedeCrud(obj: Sede): Observable<any>{
+  return this.http.post(baseUrlUtil + "/url/crudSede/registraSede", obj);
+}
+
+actualizaSedeCrud(obj: Sede): Observable<any>{
+return this.http.put(baseUrlUtil + "/url/crudSede/actualizaSede", obj);
+}
+
+eliminaSedeCrud(id: any): Observable<any>{
+return this.http.delete(baseUrlUtil + "/rest/crudSede/eliminaSede/" + id);
 }
 
 }
