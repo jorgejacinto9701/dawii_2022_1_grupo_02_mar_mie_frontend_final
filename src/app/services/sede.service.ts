@@ -27,4 +27,21 @@ listaPais():Observable<string[]>{
   return this.http.get<string[]>(baseUrlUtil+"listaPais");
 }
 
+listaSedeFiltro(nombre:string, direccion:string, idPais:number, estado:number):Observable<any> {
+  const params = new HttpParams().set("nombre", nombre).set("direccion", direccion).set("idPais", idPais).set("estado", estado);  
+  return this.http.get<any>(baseUrlUtil + "/listaSedeConParametros", {params});
+}
+
+consultaSede(filtro:string):Observable<Sede[]>{
+  return this.http.get<Sede[]>(baseUrlUtil + "/listaSedePorNombreLike/" +filtro );
+ }
+
+ registra(aux:Sede):Observable<any>{
+  return this.http.post<any>(baseUrlUtil+"/registraSede",aux);
+ }
+
+ actualiza(aux:Sede):Observable<any>{
+  return this.http.put<any>(baseUrlUtil+"/actualizaSede",aux);
+ }
+
 }
