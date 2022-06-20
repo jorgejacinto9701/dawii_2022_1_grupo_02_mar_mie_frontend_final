@@ -40,5 +40,7 @@ return this.http.post(baseUrlProducto+"/registraProducto",obj);
 actualizaProducto(obj:Producto):Observable<any>{
   return this.http.put(baseUrlProducto+"/actualizaProducto",obj)
 }
-
+eliminaProducto(id:any):Observable<any> {
+  return this.http.delete(baseUrlProducto+"/eliminaProducto/"+id)
+}
 }

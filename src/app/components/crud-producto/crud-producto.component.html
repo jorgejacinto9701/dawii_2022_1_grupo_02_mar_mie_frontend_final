@@ -2,8 +2,6 @@
     <h5>Crud de PRODUCTO</h5>
 
     <div class="col-md-23" style="margin-top: 3%">
-
-
         <div class="row" style="height: 80px">
             <div class="col-md-4">
                 <input [(ngModel)] = "filtro"  class="form-control"  id="id_txt_filtro" name="filtro"    type="text" maxlength="30" />
@@ -24,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 5%">#</th>
-                                <th style="width: 30%">Nombre</th>
+                                <th style="width: 38%">Nombre</th>
                                 <th style="width: 10%">serie</th>
                                 <th style="width: 10%">durabilidad</th>
                                 <th style="width: 31%">fechaVigencia</th>
@@ -45,10 +43,9 @@
                                 <td>{{ aux.fechaVigencia }}</td>
                                 <td>{{ aux.precio }}</td>
                                 <td>{{ aux.stock }}</td>
-                                <td>{{ aux.marca }}</td>
-                                <td>{{ aux.pais }}</td>
+                                <td>{{ aux.marca?.nombre }}</td>
+                                <td>{{ aux.pais?.nombre}}</td>
                                 <td>{{ aux.estado == 1 ? "Activo" : "Inactivo"}}</td>
-                               <!-- <td>{{ aux.ubigeo!.departamento }} - {{ aux.ubigeo!.provincia }} -{{ aux.ubigeo!.distrito }}</td>-->
                                 <td>
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idProducto}}" [checked]="aux.estado==1?true:false" name="estado" (change)="actualizaEstado(aux)" />         
@@ -56,6 +53,7 @@
                                     </div>    
                                 </td>
                                 <td><button type="button" style="width: 90px" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#idModalActualizar" (click)="buscar(aux)" >Editar</button></td>
+                                <td><button type="button" style="width: 90px" class="btn btn-danger btn-sm"  (click)="elimina(aux)" >Eliminar</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -79,76 +77,66 @@
                 </div>
                 
                 <div class="modal-body">
-                    <form class="content"  (ngSubmit)="registra()" #registraForm="ngForm">
+                    <form class="content"  (ngSubmit)="registra()"  #registraForm="ngForm">
                         <div class="submit-form">
                             
                                 <div  class="row">
                                     <div class="col-lg-4">
                                         <label for="id_reg_nombre">Nombre</label>
-                                        <input [(ngModel)]= "producto.nombre" type="text"    class="form-control" name="nombre" id="id_reg_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                        <input [(ngModel)]="producto.nombre" type="text"    class="form-control" name="nombre" id="id_reg_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
                                          
                                     </div>
                                     
                                     <div class="col-lg-2">
                                         <label for="id_reg_dni">serie</label>
-                                        <input  [(ngModel)]= "producto.serie" type="text"    class="form-control" name="dni" id="id_reg_dni"  #validaDni="ngModel" required pattern="[0-9]{8}"/>
-                                        <div *ngIf="validaDni.invalid && (validaDni.dirty || validaDni.touched)" class="alert alert-danger">
-                                          
-                                       </div> 
+                                        <input  [(ngModel)]="producto.serie" type="text"    class="form-control" name="serie" id="id_reg_serie"  #validaDni="ngModel" required pattern="[0-9]{8}"/>
+                                        
                                     </div>
                                     <div class="col-lg-2">
                                         <label for="id_reg_dni">durabilidad</label>
-                                        <input  [(ngModel)]="producto.durabilidad" type="text"    class="form-control" name="dni" id="id_reg_dni"  #validaDni="ngModel" required pattern="[0-9]{8}"/>
-                                        <div *ngIf="validaDni.invalid && (validaDni.dirty || validaDni.touched)" class="alert alert-danger">
-                                          
-                                       </div> 
+                                        <input  [(ngModel)]="producto.durabilidad" type="text"    class="form-control" name="durabilidad" id="id_reg_dni"  #validaDni="ngModel" required pattern="[0-9]{8}"/>
+                                         
                                     </div>
                                 </div>
                                 <div  class="row">
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-4">
                                         <label for="id_reg_nombre">fechaVigencia</label>
-                                        <input [(ngModel)]="producto.fechaVigencia" type="text"    class="form-control" name="nombre" id="id_reg_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                        <input [(ngModel)]="producto.fechaVigencia" type="date"    class="form-control" name="fechaVigencia" id="id_reg_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
                                            
                                     </div>
                                     
                                     <div class="col-lg-2">
                                         <label for="id_reg_dni">precio</label>
-                                        <input  [(ngModel)]="producto.precio" type="text"    class="form-control" name="dni" id="id_reg_dni"  #validaDni="ngModel" required pattern="[0-9]{8}"/>
+                                        <input  [(ngModel)]="producto.precio" type="text"    class="form-control" name="precio" id="id_reg_precio"  #validaDni="ngModel" required />
                                          
                                     </div>
                                     <div class="col-lg-2">
                                         <label for="id_reg_dni">stock</label>
-                                        <input  [(ngModel)]="producto.stock" type="text"    class="form-control" name="dni" id="id_reg_dni"  #validaDni="ngModel" required pattern="[0-9]{8}"/>
-                                         
-                                    </div>
-                                    
+                                        <input  [(ngModel)]="producto.stock" type="number"    class="form-control" name="stock" id="id_reg_stock"  #validaDni="ngModel" required />
+                                         </div>
                                 </div>  
 
-
                                 <div class="row" style="margin-top: 5%">
-                                    
                                     <div class="col-lg-4">
-                                        <label for="id_reg_departamento">Marca</label>
-                                        <select [(ngModel)]= "producto.marca" class="form-control"  name="validaDepartamento"   #validaDepartamento="ngModel" required>
+                                        <label for="id_reg_marca">Marca</label>
+                                        <select [(ngModel)]="producto.marca" class="form-control"  name="marca"    required>
                                             <option value=""> [Seleccione] </option>
-                                            <option *ngFor="let aux of marcas" value="{{ aux }}"> 
-                                                        {{ aux }}
+                                            <option *ngFor="let aux of m" value="{{ aux.idMarca }}"> 
+                                                        {{ aux.nombre}}
                                             </option>
                                         </select>
                                         
                                     </div>
 
                                     <div class="col-lg-4">
-                                        <label  for="id_reg_provincia">Pais</label>
-                                        <select  [(ngModel)]= "producto.pais!.idPais" class="form-control"  id="id_reg_provincia"  required>
-                                            <option value="-1"> [Seleccione] </option>
-                                             <option *ngFor="let aux of  paises" value="{{ aux }}"> 
-                                                        {{ aux }}
+                                        <label  for="id_reg_pais">Pais</label>
+                                        <select  [(ngModel)]="producto.pais" class="form-control"  id="id_reg_pais"  required>
+                                            <option value=""> [Seleccione] </option>
+                                             <option *ngFor="let aux of  p" value= "{{ aux.idPais}}"> 
+                                                        {{ aux.nombre }}
                                              </option>
                                         </select>
-
-                                    </div>
-                               
+                                    </div>                               
                                 </div>
 
                         </div> 
@@ -157,17 +145,13 @@
                             <button type="reset" class="btn btn-secondary" id="btn_reg_limpiar" style="width: 100px;">Limpiar</button>
                             <div class="form-group text-center">
                                 <div class="col-lg-12">
-                                    <button id="id_reg_registra"  class="btn btn-success form-control"style="width: 100px;"  [disabled]="!registraForm.form.valid">Registrar</button>
+                                    <button id="id_reg_registra"  class="btn btn-success form-control"style="width: 100px;" >Registrar</button>
                                 </div>
                             </div>
-                        </div>
-
-               
+                        </div>               
                     </form>
+
                 </div>
-
-
-
             </div>
         </div>
     </div>
@@ -187,62 +171,70 @@
                         <div class="submit-form">
 
                             <div  class="row">
-                                <div class="col-lg-8">
+                                <div class="col-lg-4">
                                     <label for="id_act_nombre">Nombre</label>
                                     <input [(ngModel)]="producto.nombre"  type="text"  class="form-control" name="validaNombre" id="id_act_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
                                     <div *ngIf="validaNombre.invalid && (validaNombre.dirty || validaNombre.touched)" class="alert alert-danger">
-                                    <!--    <div *ngIf="validaNombre.errors!.required">
-                                            El nombre es obligatorio
-                                        </div>   
-                                        <div *ngIf="validaNombre.errors!.pattern">
-                                            El nombre es de 3 a 30 caracteres
-                                        </div>--> 
+
                                      </div>   
                                 </div>
     
                                 <div class="col-lg-2">
                                     <label for="id_act_estado">Estado</label>
-                                    <select [(ngModel)]="producto.estado"  id="id_act_estado" name="estado" class="form-control" #ValidaEstado="ngModel" required>
+                                    <select [(ngModel)]="producto.estado"  id="id_act_estado" name="estado" class="form-control" required>
                                         <option value=""> [Seleccione] </option>
                                         <option value="1"> Activo </option>
                                         <option value="0"> Inactivo </option>
                                     </select>
                                    
                                 </div>
-
                                 <div class="col-lg-2">
-                                    <label for="id_act_dni">DNI</label>
-                                    <input [(ngModel)]="producto.stock"  type="text"   class="form-control" name="dni" id="id_act_dni"  maxlength="8" #validaDni="ngModel" required pattern="[0-9]{8}"/>
-                                    <div *ngIf="validaDni.invalid && (validaDni.dirty || validaDni.touched)" class="alert alert-danger">
-                                        <!-- <div *ngIf="validaDni.errors!.required">
-                                                 El stock es obligatorio
-                                        </div>  
-                                        <div *ngIf="validaDni.errors!.pattern">
-                                                 El stock es de 8 dígitos
-                                         </div> -->   
-                                   </div> 
+                                    <label for="id_act_dni">Serie</label>
+                                    <input [(ngModel)]="producto.serie"  type="text"   class="form-control" name="serie" id="id_act_serie"  maxlength="10" #validaSerie="ngModel" required/>    
+                                </div>
+                                
+                                <div class="col-lg-2">
+                                    <label for="id_act_dni">Stock</label>
+                                    <input [(ngModel)]="producto.stock"  type="number"   class="form-control" name="dni" id="id_act_dni"  maxlength="8" #validaStock="ngModel" required pattern="[0-9]{4}"/>
+                                    
+                                </div>
+                            </div>  
+                            <div  class="row">
+                                <div class="col-lg-4">
+                                    <label for="id_act_durabilidad">durabilidad</label>
+                                    <input [(ngModel)]="producto.durabilidad"  type="text"  class="form-control" name="durabilidad" id="id_act_durabilidad" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                      
+                                </div>
+    
+                                <div class="col-lg-2">
+                                    <label for="id_act_dni">fechaVigencia</label>
+                                    <input [(ngModel)]="producto.fechaVigencia"  type="date"   class="form-control" name="fechaVigencia" id="id_act_fechaVigencia"   required/>
+                                    
+                                </div>
+                                <div class="col-lg-2">
+                                    <label for="id_act_dni">Precio</label>
+                                    <input [(ngModel)]="producto.precio"  type="text"   class="form-control" name="precio" id="id_act_precio"  maxlength="8" required pattern="[0-9]{8}"/>
+                                    
                                 </div>
                             </div>
-    
-    
                             <div class="row" style="margin-top: 5%">
-                                <div class="col-lg-4">
+                                <div class="col-lg-2">
                                     <label for="id_act_departamento">MArca</label>
-                                    <select [(ngModel)] = "producto.marca!.idMarca"  id="id_act_departamento" name="departamento" class="form-control" #validaDepartamento="ngModel" required>
+                                    <select [(ngModel)]="producto.marca!.idMarca"  id="id_act_marca" name="marca" class="form-control" required>
                                         <option value="-1"> [Seleccione] </option>
-                                        <option *ngFor="let aux of marcas" value="{{ aux }}">
-                                            {{ aux }}
+                                        <option *ngFor="let aux of m" value="{{ aux.idMarca}}">
+                                            {{ aux.nombre }}
                                         </option> 
                                     </select>
                                     
                                 </div>
     
-                                <div class="col-lg-4">
-                                    <label for="id_act_provincia">PAis</label>
-                                    <select [(ngModel)] = "producto.pais"  id="id_act_provincia" name="provincia" class="form-control" #validaProvincia="ngModel" required>
-                                        <option value=""> [Seleccione] </option>
-                                        <option *ngFor="let aux of paises" value="{{ aux }}">
-                                            {{ aux }}
+                                <div class="col-lg-2">
+                                    <label for="id_act_pais">PAis</label>
+                                    <select [(ngModel)]="producto.pais!.idPais"  id="id_act_pais" name="pais" class="form-control" #validaProvincia="ngModel" required>
+                                        <option value="-1"> [Seleccione] </option>
+                                        <option *ngFor="let aux of p" value="{{ aux.idPais}}">
+                                            {{ aux.nombre }}
                                         </option>   
                                     </select>
                                    
@@ -257,16 +249,11 @@
                             <button type="reset" class="btn btn-secondary" id="btn_act_limpiar" style="width: 100px;">Limpiar</button>
                             <div class="form-group text-center">
                                 <div class="col-lg-12">
-                                    <button id="id_act_actualiza" class="btn btn-success form-control">Actualizar</button>
+                                    <button id="id_act_actualiza" class="btn btn-success form-control" >Actualizar</button>
                                 </div>
                             </div>
                         </div>
                     </form>
-
-
-
-
-
                 </div>
 
             </div>

@@ -1,3 +1,4 @@
+import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Marca } from 'src/app/models/marca.model';
 import { Pais } from 'src/app/models/pais.model';
@@ -5,6 +6,8 @@ import { Producto } from 'src/app/models/producto.model';
 import { MarcaService } from 'src/app/services/marca.service';
 import { PaisService } from 'src/app/services/pais.service';
 import { ProductoService } from 'src/app/services/producto.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-crud-producto',
@@ -15,46 +18,47 @@ export class CrudProductoComponent implements OnInit {
 //Para la grilla
 productos:Producto[] = [];
 filtro:string = "";
-m : Marca[]= [];
-p : Pais[] = [];
+
 // Para la Marca y pais 
 marcas:string[] = [];
 paises:string[] = [];
+m : Marca[]= [];
+p : Pais[] = [];
 //Json para registrarProducto o ActualizarProducto
 producto:Producto ={
   idProducto: 0,
         nombre: "",
         serie: "",
         durabilidad: "",
-        fechaVigencia: "2023-10-10",
+        fechaVigencia: "",
         precio: undefined,
-        stock: -1,
+        stock: 0,
         estado: 1,
         marca:{
           idMarca:-1},
           pais:{
             idPais:-1}
 };
-  constructor(private productoService:ProductoService,  private marcaService:MarcaService, private paisService:PaisService) {
-    this.marcaService.listaMarca1().subscribe((x)=>this.marcas=x);
-    this.paisService.listaPais1().subscribe((x)=>this.paises=x);
+ constructor(private productoService:ProductoService,  private marcaService:MarcaService, private paisService:PaisService) {
+    this.marcaService.listaMarca().subscribe((x)=>this.m=x);
+    this.paisService.listaPais().subscribe((x)=>this.p=x);
    }
-/*cargarMarca(){
-  console.log("MArca >>> " + this.producto.marca?.idMarca);
-  if(this.producto.marca?.idMarca==-1){
-    this.marcas=[];  }
-    this.producto.marca!.idMarca=-1;  
-  }
-  cargarPais(){
-    console.log("Pais >>> " + this.producto.pais?.idPais);
-  if(this.producto.pais?.idPais==-1){
-    this.paises=[]; 
-   }
-    this.producto.pais!.idPais=-1; 
-  }*/
-
+   
   ngOnInit(): void {  }
 
+  formsActualiza = new FormGroup({
+    validaNombre: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
+    validaSerie: new FormControl('', [Validators.required,Validators.pattern('[0-9]{8}')]),
+    validaDurabilidad: new FormControl('',[Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
+    validaPrecio: new FormControl('', [Validators.min(1)]),
+    validaStock:new FormControl('',[Validators.min(1)]),
+    validaEstado: new FormControl('', [Validators.min(1)]),
+    validaMarca:new FormControl('',[Validators.min(0)])
+  });
+
+    //para verificar que e pulsó el boton
+    submitted = false;
+    
   consulta(){
     this.productoService.listaProducto1(this.filtro==""?"todos":this.filtro).subscribe(
       (x)=>this.productos=x);
@@ -73,7 +77,7 @@ buscar(aux:Producto){
   );
 }
 actualiza(){
-  this.productoService.actualizaProducto(this.producto).subscribe(
+   this.productoService.actualizaProducto(this.producto).subscribe(
     (x) => {
       document.getElementById("btn_act_limpiar")?.click();
       document.getElementById("btn_act_cerrar")?.click();
@@ -91,9 +95,9 @@ actualiza(){
           nombre: "",
           serie: "",
           durabilidad: "",
-          fechaVigencia: "2023-10-10",
-          precio: undefined,
-          stock: -1,
+          fechaVigencia: "",
+          precio: 0,
+          stock: 0,
           estado: 1,
           marca:{
             idMarca:-1,
@@ -102,29 +106,31 @@ actualiza(){
               idPais:-1,
             },
   }
-}
-registra(){
+  }
+  registra(){
   this.productoService.registraProducto(this.producto).subscribe(
-    (x)=>{
+    (x)=>{      
+    
+    document.getElementById("btn_reg_cerrar")?.click();
       document.getElementById("btn_reg_limpiar")?.click();
-      document.getElementById("btn_reg_cerrar")?.click();
+  //  document.getElementById("id_reg_registra")?.click();
       alert(x.mensaje);
-      this.productoService.listaProducto1(this.filtro==""?"todos":this.filtro).subscribe(
+      this.productoService.listaProducto1(this.filtro=="todos"?"todos":this.filtro).subscribe(
         (x)=> this.productos=x
       );
     }
   );
-  this.marcas=[];
-  this.paises=[];
+  this.m=[];
+  this.p=[];
     //limpiar los componentes del formulario a través de los ngModel
     this.producto ={
       idProducto: 0,
             nombre: "",
             serie: "",
             durabilidad: "",
-            fechaVigencia: "2023-10-10",
-            precio: undefined,
-            stock: -1,
+            fechaVigencia: "2023-01-01",
+            precio: 0,
+            stock: 0,
             estado: 1,
             marca:{
               idMarca:-1,
@@ -134,4 +140,16 @@ registra(){
               },
     }
 }
+
+elimina(aux: Producto){
+  this.productoService.eliminaProducto(aux.idProducto).subscribe(
+   
+    (x) => { 
+      this.productoService.listaProducto1(this.filtro==""?"todos":this.filtro).subscribe(
+     (x) => this.productos=x );
+    alert(x.mensaje); 
+     }
+  )
+}
+
 }
