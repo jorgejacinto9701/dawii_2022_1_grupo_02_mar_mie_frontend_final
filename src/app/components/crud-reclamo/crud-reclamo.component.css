@@ -1,0 +1,9 @@
+.submit-form{
+  height: 360px;
+}
+
+.invalid ul li{
+  list-style: none;
+  color: red;
+  margin-left: -40px;
+}

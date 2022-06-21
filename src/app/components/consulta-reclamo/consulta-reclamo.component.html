@@ -1,1 +1,104 @@
-<p>consulta-reclamo works!</p>
+
+<div>
+
+  <form class="content" (submit)="filtro()">
+
+
+  <div class="submit-form" >
+
+       <div class="row">
+          <div class="col-lg-12">
+              <h6>Consulta de reclamos</h6>
+          </div>
+      </div>
+
+      <div class="row" style="margin-top: 2%">
+              <label for="descripcion" class="col-lg-1">Descripcion</label>
+              <div class="col-lg-2">
+                  <input type="text" class="form-control" name="descripcion" id="descripcion"  [(ngModel)]="descripcion" />
+              </div>
+
+              <label for="tipoReclamo">Tipo Reclamo</label>
+                  <select  id="tipoReclamo"  name="tipoReclamo" class="form-control" class="col-lg-3 ml-3"
+                      [(ngModel)]="tipo"  >
+                      <option value="-1">[Seleccione]</option>
+                      <option *ngFor="let aux of tipoReclamo"    value="{{ aux.idTipoReclamo }}">
+                                {{ aux.descripcion }}
+                      </option>
+                  </select>
+
+              <div class="col-lg-2">
+                  <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="estado" [(ngModel)]="estado" checked  name="estado"/>
+                      <label class="custom-control-label" for="estado">Estado</label>
+                  </div>
+              </div>
+              <div class="col-lg-2">
+                  <button class="btn btn-success" type="submit">Filtrar</button>
+              </div>
+       </div>
+
+       <div class="row" style="margin-top: 2%">
+              <div class="row col-lg-4">
+                  <label for="cliente" class="col-lg-3">Cliente</label>
+                  <select   id="cliente"  name="cliente" class="form-control col-lg-7"
+                      [(ngModel)]="cliente"  >
+                      <option value="-1">[Seleccione]</option>
+                      <option *ngFor="let aux of clienteLista"    value="{{ aux.idCliente }}">
+                                {{ aux.nombres }}
+                      </option>
+                  </select>
+              </div>
+              <div  class="row col-lg-4">
+                <label for="dni" class="col-lg-4">Fecha Inicio</label>
+                <div class="col-lg-6">
+                    <input type="date" class="form-control" name="fecInicio" id="fecInicio"  [(ngModel)]= "fecInicio" />
+                </div>
+              </div>
+
+              <div class="row col-lg-4">
+                <label for="dni" class="col-lg-4">Fecha Fin</label>
+                <div class="col-lg-6">
+                    <input type="date" class="form-control" name="fecFin" id="fecFin"  [(ngModel)]= "fecFin" />
+                </div>
+              </div>
+       </div>
+
+       <div class="row" style="margin-top: 3%">
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>Fecha Compra</th>
+                          <th>Descripcion</th>
+                          <th>Cliente</th>
+                          <th>Tipo Reclamo</th>
+                          <th>Estado</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                          <tr *ngFor = "let aux of reclamoLista" >
+                               <td>{{ aux.idReclamo }}</td>
+                               <td>{{ aux.fechaCompra }}</td>
+                               <td>{{ aux.descripcion }}</td>
+                               <td>{{ aux.cliente?.nombres }}</td>
+                               <td>{{ aux.tipoReclamo?.descripcion }}</td>
+                               <td>{{ aux.estado==1?'Activo':'Inactivo' }}</td>
+                          </tr>
+
+                  </tbody>
+
+
+              </table>
+
+
+       </div>
+
+
+      </div>
+
+
+   </form>
+
+
+  </div>
