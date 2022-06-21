@@ -22,17 +22,25 @@ export class ProductoService {
 listaPais():Observable<string[]>{
   return this.http.get<string[]>(baseUrlUtil+"/listaPais");
 }
-
 listaProducto():Observable<string[]>{
-  return this.http.get<string[]>(baseUrlUtil+"/listaProducto");
+  return this.http.get<string[]>(baseUrlUtil+"/listaProductoPorNombreLike/");
 }
-
-registraProducto(data:Producto):Observable<any>{
-return this.http.post(baseUrlProducto,data);
+//pc3
+listaProducto1(filtro:string):Observable<Producto[]>{
+  return this.http.get<Producto[]>(baseUrlProducto+"/listaProductoPorNombreLike1/"+filtro);
 }
 listaProductosAll(nombre:string,serie:string,durabilidad:string,estado:number):Observable<any>{
   const params= new HttpParams().set("nombre",nombre).set("serie", serie).set("durabilidad", durabilidad).set("estado", estado);
   return  this.http.get<any>(baseUrlProducto+"/listaProductoConParametros",{params});
    }
-   
+registraProducto(obj:Producto):Observable<any>{
+return this.http.post(baseUrlProducto+"/registraProducto",obj);
+}
+
+actualizaProducto(obj:Producto):Observable<any>{
+  return this.http.put(baseUrlProducto+"/actualizaProducto",obj)
+}
+eliminaProducto(id:any):Observable<any> {
+  return this.http.delete(baseUrlProducto+"/eliminaProducto/"+id)
+}
 }

@@ -17,5 +17,8 @@ export class PaisService {
   listaPais():Observable<Pais[]>{
     return this.http.get<Pais[]>(baseUrlUtil+"/listaPais");
   }
+  listaPais1():Observable<string[]>{
+    return this.http.get<string[]>(baseUrlUtil+"/listaPais");
+  }
 }
 

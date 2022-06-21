@@ -17,5 +17,7 @@ export class MarcaService {
   listaMarca(): Observable<Marca[]> {
     return this.http.get<Marca[]>(baseUrlUtil + '/listaMarca');
   }
-
+  listaMarca1(): Observable<string[]> {
+    return this.http.get<string[]>(baseUrlUtil + '/listaMarca');
+  }
 }

@@ -1,1 +1,261 @@
-<p>crud-producto works!</p>
+<div class="container" >
+    <h5>Crud de PRODUCTO</h5>
+
+    <div class="col-md-23" style="margin-top: 3%">
+        <div class="row" style="height: 80px">
+            <div class="col-md-4">
+                <input [(ngModel)] = "filtro"  class="form-control"  id="id_txt_filtro" name="filtro"    type="text" maxlength="30" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" id="id_btn_filtrar" style="width: 150px" (click)="consulta()">Filtrar</button>
+            </div>
+            <div class="col-md-2">
+                <button  type="button" data-toggle='modal' data-target="#idModalRegistrar" class='btn btn-success' style="width: 150px">Registrar</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content">
+
+                    <table id="id_table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">#</th>
+                                <th style="width: 38%">Nombre</th>
+                                <th style="width: 10%">serie</th>
+                                <th style="width: 10%">durabilidad</th>
+                                <th style="width: 31%">fechaVigencia</th>
+                                <th style="width: 7%">precio </th>
+                                <th style="width: 7%">stock </th>
+                                <th style="width: 7%">marca </th>
+                                <th style="width: 7%">pais </th>
+                                <th style="width: 7%">estado </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let aux of productos">
+                                <td>{{ aux.idProducto }}</td>
+                                <td>{{ aux.nombre }}</td>
+                                <td>{{ aux.serie }}</td>
+                                <td>{{ aux.durabilidad }}</td>
+                                <td>{{ aux.fechaVigencia }}</td>
+                                <td>{{ aux.precio }}</td>
+                                <td>{{ aux.stock }}</td>
+                                <td>{{ aux.marca?.nombre }}</td>
+                                <td>{{ aux.pais?.nombre}}</td>
+                                <td>{{ aux.estado == 1 ? "Activo" : "Inactivo"}}</td>
+                                <td>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idProducto}}" [checked]="aux.estado==1?true:false" name="estado" (change)="actualizaEstado(aux)" />         
+                                        <label class="custom-control-label" for="idEstado_{{ aux.idProducto }}"></label>
+                                    </div>    
+                                </td>
+                                <td><button type="button" style="width: 90px" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#idModalActualizar" (click)="buscar(aux)" >Editar</button></td>
+                                <td><button type="button" style="width: 90px" class="btn btn-danger btn-sm"  (click)="elimina(aux)" >Eliminar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade"  id="idModalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" style="max-width: 70%;">
+            <div class="modal-content" >
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registro de producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                     <form class="content"  (ngSubmit)="registra()" #registraForm="ngForm">
+                        <div class="submit-form">
+                            
+                                <div  class="row">
+                                    <div class="col-lg-4">
+                                        <label for="id_reg_nombre">Nombre</label>
+                                        <input [(ngModel)]="producto.nombre" type="text"    class="form-control" name="nombre" id="id_reg_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                         
+                                    </div>
+                                    
+                                    <div class="col-lg-2">
+                                        <label for="id_reg_dni">serie</label>
+                                        <input  [(ngModel)]="producto.serie" type="text"    class="form-control" name="serie" id="id_reg_serie"  #validaDni="ngModel" required pattern="[0-9]{8}"/>
+                                        
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label for="id_reg_dni">durabilidad</label>
+                                        <input  [(ngModel)]="producto.durabilidad" type="text"    class="form-control" name="durabilidad" id="id_reg_dni"  #validaDni="ngModel" required pattern="[0-9]{8}"/>
+                                         
+                                    </div>
+                                </div>
+                                <div  class="row">
+                                    <div class="col-lg-4">
+                                        <label for="id_reg_nombre">fechaVigencia</label>
+                                        <input [(ngModel)]="producto.fechaVigencia" type="date"    class="form-control" name="fechaVigencia" id="id_reg_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                           
+                                    </div>
+                                    
+                                    <div class="col-lg-2">
+                                        <label for="id_reg_dni">precio</label>
+                                        <input  [(ngModel)]="producto.precio" type="text"    class="form-control" name="precio" id="id_reg_precio"  #validaDni="ngModel" required />
+                                         
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label for="id_reg_dni">stock</label>
+                                        <input  [(ngModel)]="producto.stock" type="number"    class="form-control" name="stock" id="id_reg_stock"  #validaDni="ngModel" required />
+                                         </div>
+                                </div>  
+
+                                <div class="row" style="margin-top: 5%">
+                                    <div class="col-lg-4">
+                                        <label for="id_reg_marca">Marca</label>
+                                        <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"    required>
+                                            <option value="-1"> [Seleccione] </option>
+                                            <option *ngFor="let aux of m" value="{{ aux.idMarca }}"> 
+                                                        {{ aux.nombre}}
+                                            </option>
+                                        </select>
+                                        
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label  for="id_reg_pais">Pais</label>
+                                        <select  [(ngModel)]="producto.pais!.idPais" class="form-control"  name="pais"  required>
+                                            <option value="-1"> [Seleccione] </option>
+                                             <option *ngFor="let aux of  p" value= "{{ aux.idPais}}"> 
+                                                        {{ aux.nombre }}
+                                             </option>
+                                        </select>
+                                    </div>                               
+                                </div>
+
+                        </div> 
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_reg_cerrar" style="width: 100px;">Close</button>
+                            <button type="reset" class="btn btn-secondary" id="btn_reg_limpiar" style="width: 100px;">Limpiar</button>
+                            <div class="form-group text-center">
+                                <div class="col-lg-12">
+                                    <button id="id_reg_registra"  class="btn btn-success form-control"style="width: 100px;" >Registrar</button>
+                                </div>
+                            </div>
+                        </div>               
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="idModalActualizar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Actualización de producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="content" (ngSubmit)="actualiza()"  #actualizaForm="ngForm">
+                        <div class="submit-form">
+
+                            <div  class="row">
+                                <div class="col-lg-4">
+                                    <label for="id_act_nombre">Nombre</label>
+                                    <input [(ngModel)]="producto.nombre"  type="text"  class="form-control" name="validaNombre" id="id_act_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                    <div *ngIf="validaNombre.invalid && (validaNombre.dirty || validaNombre.touched)" class="alert alert-danger">
+
+                                     </div>   
+                                </div>
+    
+                                <div class="col-lg-2">
+                                    <label for="id_act_estado">Estado</label>
+                                    <select [(ngModel)]="producto.estado"  id="id_act_estado" name="estado" class="form-control" required>
+                                        <option value=""> [Seleccione] </option>
+                                        <option value="1"> Activo </option>
+                                        <option value="0"> Inactivo </option>
+                                    </select>
+                                   
+                                </div>
+                                <div class="col-lg-2">
+                                    <label for="id_act_dni">Serie</label>
+                                    <input [(ngModel)]="producto.serie"  type="text"   class="form-control" name="serie" id="id_act_serie"  maxlength="10" #validaSerie="ngModel" required/>    
+                                </div>
+                                
+                                <div class="col-lg-2">
+                                    <label for="id_act_dni">Stock</label>
+                                    <input [(ngModel)]="producto.stock"  type="number"   class="form-control" name="dni" id="id_act_dni"  maxlength="8" #validaStock="ngModel" required pattern="[0-9]{4}"/>
+                                    
+                                </div>
+                            </div>  
+                            <div  class="row">
+                                <div class="col-lg-4">
+                                    <label for="id_act_durabilidad">durabilidad</label>
+                                    <input [(ngModel)]="producto.durabilidad"  type="text"  class="form-control" name="durabilidad" id="id_act_durabilidad" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                      
+                                </div>
+    
+                                <div class="col-lg-2">
+                                    <label for="id_act_dni">fechaVigencia</label>
+                                    <input [(ngModel)]="producto.fechaVigencia"  type="date"   class="form-control" name="fechaVigencia" id="id_act_fechaVigencia"   required/>
+                                    
+                                </div>
+                                <div class="col-lg-2">
+                                    <label for="id_act_dni">Precio</label>
+                                    <input [(ngModel)]="producto.precio"  type="text"   class="form-control" name="precio" id="id_act_precio"  maxlength="8" required pattern="[0-9]{8}"/>
+                                    
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 5%">
+                                <div class="col-lg-2">
+                                    <label for="id_act_departamento">MArca</label>
+                                    <select [(ngModel)]="producto.marca!.idMarca"  id="id_act_marca" name="marca" class="form-control" required>
+                                        <option value="-1"> [Seleccione] </option>
+                                        <option *ngFor="let aux of m" value="{{ aux.idMarca}}">
+                                            {{ aux.nombre }}
+                                        </option> 
+                                    </select>
+                                    
+                                </div>
+    
+                                <div class="col-lg-2">
+                                    <label for="id_act_pais">PAis</label>
+                                    <select [(ngModel)]="producto.pais!.idPais"  id="id_act_pais" name="pais" class="form-control" #validaProvincia="ngModel" required>
+                                        <option value="-1"> [Seleccione] </option>
+                                        <option *ngFor="let aux of p" value="{{ aux.idPais}}">
+                                            {{ aux.nombre }}
+                                        </option>   
+                                    </select>
+                                   
+                                </div>
+    
+                            </div> 
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_act_cerrar" style="width: 100px;">Close</button>
+                            <button type="reset" class="btn btn-secondary" id="btn_act_limpiar" style="width: 100px;">Limpiar</button>
+                            <div class="form-group text-center">
+                                <div class="col-lg-12">
+                                    <button id="id_act_actualiza" class="btn btn-success form-control" >Actualizar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
