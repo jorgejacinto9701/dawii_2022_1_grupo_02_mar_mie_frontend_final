@@ -6,7 +6,7 @@ import { TipoReclamo } from 'src/app/models/tipo-reclamo.model';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ReclamoService } from 'src/app/services/reclamo.service';
 import { TipoReclamoService } from 'src/app/services/tipo-reclamo.service';
-import Swal from 'sweetalert2';
+/*import Swal from 'sweetalert2';*/
 
 @Component({
   selector: 'app-crud-reclamo',
@@ -132,7 +132,7 @@ export class CrudReclamoComponent implements OnInit {
                        .subscribe({
                         next: (resp) =>{
                           document.getElementById("btn_act_cerrar")?.click();
-                           Swal.fire('Mensaje', resp.mensaje,'success');
+                          /* Swal.fire('Mensaje', resp.mensaje,'success');*/
                            this.ngOnInit();
                         }
                        })
@@ -158,7 +158,7 @@ export class CrudReclamoComponent implements OnInit {
 }
 
 elimina(aux :Reclamo){
-  Swal.fire({
+ /* Swal.fire({
         title: '¿Estás Seguro?',
         text: "¡No se puede revertir!",
         icon: 'warning',
@@ -176,7 +176,7 @@ elimina(aux :Reclamo){
             })
 
       }
-  })
+  })*/
 }
 
   cerrar(){
