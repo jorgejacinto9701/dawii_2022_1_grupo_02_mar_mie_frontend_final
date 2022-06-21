@@ -1,0 +1,8 @@
+.submit-form {
+    padding: 10%;
+    margin: auto;
+}
+
+.error { 
+    color: rgb(101, 101, 172);
+}
