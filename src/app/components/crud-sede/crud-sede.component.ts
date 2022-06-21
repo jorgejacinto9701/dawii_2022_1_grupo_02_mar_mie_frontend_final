@@ -15,7 +15,7 @@ export class CrudSedeComponent implements OnInit {
   sedes : Sede[] = [];
   filtro : string = "";
 
-  paises : Pais[] = [];;
+  paises : Pais[] = [];
 
   sede: Sede ={
     idSede:0,
@@ -27,21 +27,7 @@ export class CrudSedeComponent implements OnInit {
       idPais:-1,
     }
   };
-
-  //Declaracion de validaciones
-  registraForm = new FormGroup({
-    validaNombre : new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaDireccion : new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaPais : new FormControl('', [Validators.min(1)]),
-  });
-
-  actualizaForm = new FormGroup({
-    validaNombre : new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaDireccion : new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaPais : new FormControl('', [Validators.min(1)]),
-    validaEstado: new FormControl('', [Validators.min(0)]),
-  });
-
+  
    //para verificar que e pulsó el boton
    submitted = false;
 
@@ -73,24 +59,16 @@ actualizaEstado(aux : Sede){
 
 registra(){
    this.submitted = true;
-     //finaliza el método si hay un error
-     if (this.registraForm.invalid){
-      return;
-     }
-     
-     this.submitted = false;
-
-     this.sedeService.registraSedeCrud(this.sede).subscribe(
-           (x) => {
-             document.getElementById("btn_reg_cerrar")?.click();
-             alert(x.mensaje);
-             this.sedeService.listaSedeCrud(this.filtro==""?"todos":this.filtro).subscribe(
-                     (x) => this.sedes = x
-             );
-
-           } 
-     );
-
+   this.sedeService.registraSedeCrud(this.sede).subscribe(
+    (x) => {
+      document.getElementById("btn_reg_limpiar")?.click();
+      document.getElementById("btn_reg_cerrar")?.click();
+      alert(x.mensaje);
+      this.sedeService.listaSedeCrud(this.filtro==""?"todos":this.filtro).subscribe(
+            (x) => this.sedes = x
+      );
+    } 
+);
      //limpiar los comobobox
      this.paises = [];
 
@@ -116,21 +94,16 @@ buscar(aux :Sede){
 
 actualiza(){
   this.submitted = true;
-  //finaliza el método si hay un error
-    if (this.actualizaForm.invalid){
-     return;
-    }
-
-    this.submitted = false;
-    this.sedeService.actualizaSedeCrud(this.sede).subscribe(
-          (x) => {
-            document.getElementById("btn_act_cerrar")?.click();
-            alert(x.mensaje);
-            this.sedeService.listaSedeCrud(this.filtro==""?"todos":this.filtro).subscribe(
-                    (x) => this.sedes = x
-            );
-          } 
-  );
+  this.sedeService.actualizaSedeCrud(this.sede).subscribe(
+    (x) => {
+      document.getElementById("btn_act_limpiar")?.click();
+      document.getElementById("btn_act_cerrar")?.click();
+      alert(x.mensaje);
+      this.sedeService.listaSedeCrud(this.filtro==""?"todos":this.filtro).subscribe(
+              (x) => this.sedes = x
+      );
+    } 
+);
 
   //limpiar los comobobox
     this.paises = [];
