@@ -119,8 +119,8 @@
                                 <div class="row" style="margin-top: 5%">
                                     <div class="col-lg-4">
                                         <label for="id_reg_marca">Marca</label>
-                                        <select [(ngModel)]="producto.marca" class="form-control"  name="marca"    required>
-                                            <option value=""> [Seleccione] </option>
+                                        <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"    required>
+                                            <option value="-1"> [Seleccione] </option>
                                             <option *ngFor="let aux of m" value="{{ aux.idMarca }}"> 
                                                         {{ aux.nombre}}
                                             </option>
@@ -130,8 +130,8 @@
 
                                     <div class="col-lg-4">
                                         <label  for="id_reg_pais">Pais</label>
-                                        <select  [(ngModel)]="producto.pais" class="form-control"  id="id_reg_pais"  required>
-                                            <option value=""> [Seleccione] </option>
+                                        <select  [(ngModel)]="producto.pais!.idPais" class="form-control"  name="pais"  required>
+                                            <option value="-1"> [Seleccione] </option>
                                              <option *ngFor="let aux of  p" value= "{{ aux.idPais}}"> 
                                                         {{ aux.nombre }}
                                              </option>
