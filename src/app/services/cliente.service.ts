@@ -9,6 +9,8 @@ import { Cliente } from '../models/cliente.model';
 const baseUrlUtil = AppSettings.API_ENDPOINT+ '/util';
 const baseUrlCliente = AppSettings.API_ENDPOINT+ '/cliente';
 const baseConsultarCliente="http://localhost:8090/url/cliente";
+const baseUrlClienteCrud = AppSettings.API_ENDPOINT+ '/crudCliente';
+
 
 
 @Injectable({
@@ -28,9 +30,28 @@ export class ClienteService {
   }
 
 
-  registraCliente(data:Cliente) : Observable<any>{
+
+  registrarCliente(data:Cliente) : Observable<any>{
     return this.http.post(baseUrlCliente,data);
 
 
 }
+//crud
+consultaCliente(filtro : string) : Observable<Cliente[]>{
+  return this.http.get<Cliente[]>(baseConsultarCliente + "/listaClientePorNombresLike/" + filtro);
+          }
+  registraCliente(obj: Cliente): Observable<any>{
+  return this.http.post(baseConsultarCliente + "/registraCliente", obj);
+   }
+  
+   actualizaCliente(obj: Cliente): Observable<any>{
+    return this.http.put(baseConsultarCliente + "/actualizaCliente", obj);
+     } 
+  eliminaCliente(id : any): Observable<any>{
+    return this.http.delete(baseConsultarCliente + "/eliminaCliente/"+ id);
+    } 
+
+
+
+
 }
