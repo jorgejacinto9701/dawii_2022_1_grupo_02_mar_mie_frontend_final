@@ -100,7 +100,7 @@ export class CrudReclamoComponent implements OnInit {
                        .subscribe({
                         next: (resp) => {
                           document.getElementById("btn_reg_cerrar")?.click();
-                          Swal.fire('Mensaje', resp.mensaje,'success');
+                          /*Swal.fire('Mensaje', resp.mensaje,'success');*/
                           this.ngOnInit();
                           }
                         })
