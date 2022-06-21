@@ -15,7 +15,7 @@ export class CrudSedeComponent implements OnInit {
   sedes : Sede[] = [];
   filtro : string = "";
 
-  pais : Pais[] = [];
+  paises : Pais[] = [];;
 
   sede: Sede ={
     idSede:0,
@@ -24,21 +24,21 @@ export class CrudSedeComponent implements OnInit {
     estado:1,
     codigoPostal:"",
     pais:{
-      idPais:-1
+      idPais:-1,
     }
-  }
+  };
 
   //Declaracion de validaciones
-  formsRegistra = new FormGroup({
-    validaNombre: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaDireccion: new FormControl('', [Validators.required,Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaPais: new FormControl('', [Validators.min(1)]),
+  registraForm = new FormGroup({
+    validaNombre : new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
+    validaDireccion : new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
+    validaPais : new FormControl('', [Validators.min(1)]),
   });
 
-  formsActualiza = new FormGroup({
-    validaNombre: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaDireccion: new FormControl('', [Validators.required,Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaPais: new FormControl('', [Validators.min(1)]),
+  actualizaForm = new FormGroup({
+    validaNombre : new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
+    validaDireccion : new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
+    validaPais : new FormControl('', [Validators.min(1)]),
     validaEstado: new FormControl('', [Validators.min(0)]),
   });
 
@@ -47,22 +47,18 @@ export class CrudSedeComponent implements OnInit {
 
   constructor(private sedeService: SedeService, private paisService: PaisService) {
     this.paisService.listaPais().subscribe(
-      response => this.pais = response
+      response => this.paises = response
     );
    }
 
 cargaPais(){
-  console.log("pais >>> " + this.sede.pais?.idPais);
-    if (this.sede.pais?.idPais == 1){
-      this.pais = [];
-    }else{
-      this.paisService.listaPais().subscribe(
-        response =>  this.pais= response
-       );
-    }
-    
-     this.sede!.pais!.idPais = -1;
-}
+  this.paisService.listaPais().subscribe(
+    response =>  this.paises= response
+   );
+
+   this.sede!.pais!.idPais = -1;
+ }
+
 
 consulta(){
    this.sedeService.listaSedeCrud(this.filtro==""?"todos":this.filtro).subscribe(
@@ -78,7 +74,7 @@ actualizaEstado(aux : Sede){
 registra(){
    this.submitted = true;
      //finaliza el método si hay un error
-     if (this.formsRegistra.invalid){
+     if (this.registraForm.invalid){
       return;
      }
      
@@ -96,7 +92,7 @@ registra(){
      );
 
      //limpiar los comobobox
-     this.pais = [];
+     this.paises = [];
 
      //limpiar los componentes del formulario a través de los ngModel
 
@@ -114,14 +110,14 @@ registra(){
 buscar(aux :Sede){
   this.sede  = aux;
   this.paisService.listaPais().subscribe(
-      response =>  this.pais= response
+      response =>  this.paises= response
   );
 }
 
 actualiza(){
   this.submitted = true;
   //finaliza el método si hay un error
-    if (this.formsActualiza.invalid){
+    if (this.actualizaForm.invalid){
      return;
     }
 
@@ -137,7 +133,7 @@ actualiza(){
   );
 
   //limpiar los comobobox
-    this.pais = [];
+    this.paises = [];
 
   //limpiar los componentes del formulario a través de los ngModel
 
@@ -158,9 +154,9 @@ elimina(aux :Sede){
         alert(x.mensaje);
         this.sedeService.listaSedeCrud(this.filtro==""?"todos":this.filtro).subscribe(
           (x) => this.sedes = x
-        )
+        );
       }
-     )
+    );
 }
 
 ngOnInit(): void {}

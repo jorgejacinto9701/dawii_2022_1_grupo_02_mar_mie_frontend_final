@@ -25,7 +25,7 @@
                             <tr>
                                 <th style="width: 5%">#</th>
                                 <th style="width: 30%">Nombre</th>
-                                <th style="width: 10%">Direccion</th>
+                                <th style="width: 10%">Dirección</th>
                                 <th style="width: 10%">Estado</th>
                                 <th style="width: 31%">Pais</th>
                                 <th style="width: 7%"></th>
@@ -36,17 +36,17 @@
                         <tbody>
                             <tr *ngFor="let aux of sedes">
                                 <td>{{ aux.idSede }}</td>
-                                <td>{{ aux.nombre }}</td>
                                 <td>{{ aux.direccion }}</td>
                                 <td>{{ aux.estado == 1 ? "Activo" : "Inactivo"}}</td>
                                 <td>{{ aux.pais!.idPais }}</td>
                                 <td>
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idSede}}" [checked]="aux.estado==1?true:false" name="estado" (change)="actualizaEstado(aux)" />         
+                                        <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idSede }}" [checked]="aux.estado==1?true:false" name="estado" (change)="actualizaEstado(aux)" />         
                                         <label class="custom-control-label" for="idEstado_{{ aux.idSede }}"></label>
                                     </div>    
                                 </td>
                                 <td><button type="button" style="width: 90px" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#idModalActualizar" (click)="buscar(aux)" >Editar</button></td>
+                                <td><button type="button" style="width: 90px" class="btn btn-primary btn-sm"  data-toggle="modal"  (click)="elimina(aux)" >Eliminar</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -70,58 +70,73 @@
                 </div>
                 
                 <div class="modal-body">
-                    <form class="content"  (ngSubmit)="registra()"  [formGroup]="formsRegistra">
+                    <form class="content"  (ngSubmit)="registra()" #registraForm="ngForm">
                         <div class="submit-form">
                             
-                                <!-- <div  class="row">
+                                <div  class="row">
                                     <div class="col-lg-8">
                                         <label for="id_reg_nombre">Nombre</label>
-                                        <input  formControlName="validaNombre" [(ngModel)]="sede.nombre" type="text" placeholder="Ingrese el nombre" class="form-control" name="nombre" id="id_reg_nombre" />
-                                        <div *ngIf="submitted && formsRegistra.controls.validaNombre.errors" class="invalid"> 
-                                            <ul>
-                                                <li>El nombre es obligatorio</li>    
-                                                <li>El nombre es de 3 a 30 caracteres</li>    
-                                            </ul>
-                                        </div>
+                                        <input [(ngModel)]="sede.nombre" type="text" placeholder="Ingrese Nombre" class="form-control" name="nombre" 
+                                        id="id_reg_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                        <div *ngIf="validaNombre.invalid && (validaNombre.dirty || validaNombre.touched)" class="alert alert-danger">
+                                            <div *ngIf="validaNombre.errors!">
+                                               El nombre es obligatorio
+                                            </div>   
+
+                                            <div *ngIf="validaNombre.errors!">
+                                                El nombre es de 3 a 30 caracteres
+                                            </div> 
+                                         </div>   
                                     </div>
                                     
-                                    <div class="col-lg-4">
-                                        <label for="id_reg_direccion">DNI</label>
-                                        <input formControlName="validaDireccion" [(ngModel)]="sede.direccion" type="text" placeholder="Ingrese Direccion" class="form-control" name="direccion" id="id_reg_direccion"  maxlength="8"/>
-                                        <div *ngIf="submitted && formsRegistra.controls.validaDireccion.errors" class="invalid"> 
-                                            <ul>
-                                                <li>El Direccion es obligatorio</li>    
-                                                <li>El Direccion es de 3 a 30 caracteres</li>    
-                                            </ul>
-                                        </div> 
+                                    <div class="col-lg-8">
+                                        <label for="id_reg_direccion">Dirección</label>
+                                        <input [(ngModel)]="sede.direccion" type="text" placeholder="Ingrese Dirección" class="form-control" name="direccion" 
+                                        id="id_reg_direccion" #validaDireccion="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                        <div *ngIf="validaDireccion.invalid && (validaDireccion.dirty || validaDireccion.touched)" class="alert alert-danger">
+                                            <div *ngIf="validaDireccion.errors!">
+                                               La dirección es obligatorio
+                                            </div>   
+
+                                            <div *ngIf="validaDireccion.errors!">
+                                                La dirección es de 3 a 30 caracteres
+                                            </div> 
+                                         </div>   
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
-                                        <label for="id_reg_pais">Pais</label>
-                                        <select formControlName= "validaPais"  [(ngModel)]="sede.pais.idPais"  id="id_reg_pais" name="pais" class="form-control">
-                                            <option value="-1"> [Seleccione] </option>
-                                            <option *ngFor="let aux of  pais" value="{{ aux.idPais}}"> 
-                                                {{ aux.pais }}
-                                             </option>
-                                        </select>
-                                        <div *ngIf="submitted && formsRegistra.controls.validaPais.errors" class="invalid">
-                                            <ul>
-                                                <li>El Pais es obligatorio</li>    
-                                            </ul>
-                                         </div>
-                                </div> -->
-                                
-                            </div>       
 
+                                <div class="row" style="margin-top: 5%">
+                                    
+                                    <div class="col-lg-4">
+                                        <label for="id_reg_pais">Pais</label>
+                                        <select [(ngModel)]="sede.pais!.idPais"   class="form-control" class="form-control" name="pais" id="id_reg_pais"  #validaPais="ngModel" pattern="[0-9]{1,9}">
+                                            <option value="-1"> [Seleccione] </option>
+                                                <option *ngFor="let aux of  paises" value="{{ aux.idPais }}"> 
+                                                    {{ aux.nombre }}
+                                                </option>
+                                        </select>
+
+                                        <div *ngIf="validaPais.invalid && (validaPais.dirty || validaPais.touched) " class="alert alert-danger">
+                                                    El pais es obligatorio
+                                        </div>
+                                    </div>
+                                
+                                
+                                
+                                </div>
+
+                        </div> 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_reg_cerrar" style="width: 100px;">Close</button>
+                            <button type="reset" class="btn btn-secondary" id="btn_reg_limpiar" style="width: 100px;">Limpiar</button>
                             <div class="form-group text-center">
                                 <div class="col-lg-12">
-                                    <button id="id_reg_registra"  class="btn btn-success form-control"style="width: 100px;" [disabled]="submitted && formsRegistra.invalid">Registrar</button>
+                                    <button id="id_reg_registra"  class="btn btn-success form-control"style="width: 100px;"  [disabled]="!registraForm.form.valid">Registrar</button>
                                 </div>
                             </div>
                         </div>
+
                
                     </form>
                 </div>
@@ -143,76 +158,84 @@
                 </div>
                 <div class="modal-body">
 
-                    <form class="content" (ngSubmit)="actualiza()" [formGroup]="formsActualiza">
+                    <form class="content" (ngSubmit)="actualiza()"  #actualizaForm="ngForm">
                         <div class="submit-form">
 
-                            <!-- <div  class="row">
+                            <div  class="row">
                                 <div class="col-lg-8">
-                                    <label for="id_act_nombre">Nombre</label>
-                                    <input  formControlName="validaNombre" [(ngModel)]="sede.nombre"  type="text" placeholder="Ingrese el nombre" class="form-control" name="nombre" id="id_act_nombre" />
-                                    <div *ngIf="submitted && formsActualiza.controls.validaNombre.errors" class="invalid">
-                                        <ul>
-                                            <li>El nombre es obligatorio</li>    
-                                            <li>El nombre es de 3 a 30 caracteres</li>    
-                                        </ul>
-                                     </div> 
+                                    <label for="id_reg_nombre">Nombre</label>
+                                    <input [(ngModel)]="sede.nombre" type="text" placeholder="Ingrese Nombre" class="form-control" name="nombre" 
+                                    id="id_reg_nombre" #validaNombre="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                    <div *ngIf="validaNombre.invalid && (validaNombre.dirty || validaNombre.touched)" class="alert alert-danger">
+                                        <div *ngIf="validaNombre.errors!">
+                                           El nombre es obligatorio
+                                        </div>   
+                                        <div *ngIf="validaNombre.errors!">
+                                            El nombre es de 3 a 30 caracteres
+                                        </div> 
+                                     </div>   
                                 </div>
     
                                 <div class="col-lg-2">
-                                    <label  for="id_act_estado">Estado</label>
-                                    <select formControlName="validaEstado" [(ngModel)]="sede.estado"  id="id_act_estado" name="estado" class="form-control">
-                                        <option value="-1"> [Seleccione] </option>
+                                    <label for="id_act_estado">Estado</label>
+                                    <select [(ngModel)]="sede.estado"  id="id_act_estado" name="estado" class="form-control" #ValidaEstado="ngModel" required>
+                                        <option value=""> [Seleccione] </option>
                                         <option value="1"> Activo </option>
                                         <option value="0"> Inactivo </option>
                                     </select>
-                                    <div *ngIf="submitted && formsActualiza.controls.validaEstado.errors" class="invalid">
-                                        <ul>
-                                            <li>El estado es obligatorio</li>    
-                                        </ul>
+                                    <div *ngIf="ValidaEstado.invalid && (ValidaEstado.dirty || ValidaEstado.touched)" class="alert alert-danger">
+                                        <div *ngIf="validaNombre.errors!">
+                                            El estado es obligatorio
+                                        </div>   
                                      </div>
                                 </div>
 
-                                <div class="col-lg-2">
-                                    <label for="id_act_direccion">Direccion</label>
-                                    <input formControlName="validaDireccion" [(ngModel)]="sede.direccion" type="text" placeholder="Ingrese Direccion" class="form-control" name="direccion" id="id_act_direccion"  maxlength="8"/>
-                                    <div *ngIf="submitted && formsActualiza.controls.validaDireccion.errors" class="invalid">
-                                        <ul>
-                                            <li>La Direccion es obligatorio</li>    
-                                            <li>La Direccion es de 3 a 30 caracteres</li>    
-                                        </ul>
-                                     </div>
+                                <div class="col-lg-8">
+                                    <label for="id_reg_direccion">Dirección</label>
+                                    <input [(ngModel)]="sede.direccion" type="text" placeholder="Ingrese Dirección" class="form-control" name="direccion" 
+                                    id="id_reg_direccion" #validaDireccion="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                    <div *ngIf="validaDireccion.invalid && (validaDireccion.dirty || validaDireccion.touched)" class="alert alert-danger">
+                                        <div *ngIf="validaDireccion.errors!">
+                                           La dirección es obligatorio
+                                        </div>   
+                                        <div *ngIf="validaDireccion.errors!">
+                                            La dirección es de 3 a 30 caracteres
+                                        </div> 
+                                     </div>   
                                 </div>
                             </div>
-        
-                             <div class="col-lg-4">
-                                 <label for="id_act_pais">Pais</label>
-                                 <select formControlName="validaPais" [(ngModel)] = "sede.pais!.idPais" id="id_act_pais" name="pais" class="form-control">
-                                      <option value="-1"> [Seleccione] </option>
-                                     <option *ngFor="let aux of pais"    value="{{ aux.idPais }}">
-                                        {{ aux.pais }}
-                                       </option> 
-                                  </select>
-                                  <div *ngIf="submitted && formsActualiza.controls.validaPais.errors" class="invalid">
-                                       <ul>
-                                          <li>El pais es obligatorio</li>    
-                                     </ul>
-                                  </div>
-                            </div>-->
-                        </div>  
+    
+                            <div class="row" style="margin-top: 5%">
+                                   
+                                <div class="col-lg-4">
+                                    <label for="id_reg_pais">Pais</label>
+                                    <select [(ngModel)]="sede.pais!.idPais"   class="form-control" class="form-control" name="pais" id="id_reg_pais"  #validaPais="ngModel" pattern="[0-9]{1,9}">
+                                        <option value="-1"> [Seleccione] </option>
+                                             <option *ngFor="let aux of  paises" value="{{ aux.idPais }}"> 
+                                                {{ aux.nombre }}
+                                            </option>
+                                    </select>
+                                    <div *ngIf="validaPais.invalid && (validaPais.dirty || validaPais.touched) " class="alert alert-danger">
+                                                El pais es obligatorio
+                                    </div>
+                                </div>
+
+                            </div> 
+                        </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_act_cerrar">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_act_cerrar" style="width: 100px;">Close</button>
+                            <button type="reset" class="btn btn-secondary" id="btn_act_limpiar" style="width: 100px;">Limpiar</button>
                             <div class="form-group text-center">
                                 <div class="col-lg-12">
-                                    <button id="id_act_actualiza" class="btn btn-success form-control"[disabled]="submitted && formsActualiza.invalid">Actualizar</button>
+                                    <button id="id_act_actualiza" class="btn btn-success form-control">Actualizar</button>
                                 </div>
                             </div>
                         </div>
                     </form>
-
-
                 </div>
 
             </div>
         </div>
     </div>
+</div>
