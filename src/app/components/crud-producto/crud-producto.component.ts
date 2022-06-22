@@ -48,21 +48,25 @@ producto:Producto ={
 
   formsActualiza = new FormGroup({
     validaNombre: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaSerie: new FormControl('', [Validators.required,Validators.pattern('[0-9]{8}')]),
+    validaSerie: new FormControl('', [Validators.required,Validators.pattern('[0-9]{0,10}')]),
     validaDurabilidad: new FormControl('',[Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
+    //validaFecha: new FormControl('', [Validators.required,Validators.pattern('^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$')]),
     validaPrecio: new FormControl('', [Validators.min(1)]),
     validaStock:new FormControl('',[Validators.min(1)]),
     validaEstado: new FormControl('', [Validators.min(1)]),
-    validaMarca:new FormControl('',[Validators.min(0)])
-  });
+    validaMarca:new FormControl('',[Validators.min(1)]),
+    validaPais:new FormControl('',[Validators.min(1)])
+    });
   formsRegistra = new FormGroup({
     validaNombre: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
-    validaSerie: new FormControl('', [Validators.required,Validators.pattern('[0-9]{8}')]),
+    validaSerie: new FormControl('', [Validators.required,Validators.pattern('[0-9]{0,8}')]),
     validaDurabilidad: new FormControl('',[Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
+    //validaFecha: new FormControl('', [Validators.required,Validators.pattern('^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$')]),
     validaPrecio: new FormControl('', [Validators.min(1)]),
     validaStock:new FormControl('',[Validators.min(1)]),
     validaEstado: new FormControl('', [Validators.min(1)]),
-    validaMarca:new FormControl('',[Validators.min(0)])
+    validaMarca:new FormControl('',[Validators.min(1)]),
+    validaPais:new FormControl('',[Validators.min(1)])
   });
 
     //para verificar que e pulsó el boton

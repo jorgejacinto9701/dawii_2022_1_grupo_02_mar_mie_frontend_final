@@ -131,7 +131,7 @@
                                     
                                     <div class="col-lg-3">
                                         <label for="id_reg_precio">precio</label>
-                                        <input  [(ngModel)]="producto.precio" type="text"    class="form-control" name="precio" id="id_reg_precio"  #validaPrecio="ngModel" minlength="1" maxlength="10" required pattern="[0-9]{1,10}" />
+                                        <input  [(ngModel)]="producto.precio" type="text"    class="form-control" name="precio" id="id_reg_precio"  #validaPrecio="ngModel" minlength="1" maxlength="10" required pattern="^[0-9]+([.][0-9]+)?$" />
                                         <div  *ngIf="validaPrecio.invalid && (validaPrecio.dirty || validaPrecio.touched)" class="alert alert-danger" >
                                             <table  *ngIf="validaPrecio.errors!">                                                
                                                 <p  >el precio es obligatorio</p>                                                
@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="id_reg_stock">stock</label>
-                                        <input  [(ngModel)]="producto.stock" type="number"    class="form-control" name="stock" id="id_reg_stock"  #validaStock="ngModel" required pattern="[1-9]{1,10}"   />
+                                        <input  [(ngModel)]="producto.stock" type="number"    class="form-control" name="stock" id="id_reg_stock"  #validaStock="ngModel" required  minlength="1" pattern="[1-9]{1,10}"   />
                                         <div  *ngIf="validaStock.invalid && (validaStock.dirty || validaStock.touched)" class="alert alert-danger" >
                                             <span   *ngIf="validaStock.errors!">                                                
                                                     <p  > el stock es obligatorio</p>                                                
