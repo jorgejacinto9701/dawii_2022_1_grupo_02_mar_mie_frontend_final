@@ -119,7 +119,6 @@ actualiza(){
         direccion:"",
         estado:1,
         codigoPostal:"",
-        fechaCreacion: new Date('dd-mm-aa'),
         pais:{
           idPais: -1
         }
