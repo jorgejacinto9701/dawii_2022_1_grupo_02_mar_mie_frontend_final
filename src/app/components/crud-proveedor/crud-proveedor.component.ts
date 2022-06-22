@@ -27,6 +27,10 @@ proveedor: Proveedor = {
 idProveedor:0,
 razonsocial:"",
 ruc:"",
+direccion:"",
+telefono:"",
+celular:"",
+contacto:"",
 estado:1,
 ubigeo:{
   idUbigeo: -1,
@@ -83,7 +87,6 @@ actualizaEstado(aux : Proveedor){
   aux.estado = aux.estado == 0? 1 :0;
   this.proveedorService.actualizaProveedor(aux).subscribe();
 }
-
 registra(){
   this.proveedorService.registrarProveedor(this.proveedor).subscribe(
     (x) => {
@@ -95,7 +98,6 @@ registra(){
       );
     } 
 );
-
  //limpiar los comobobox
  this.distritos = [];
  this.provincias = [];
@@ -104,6 +106,10 @@ registra(){
   idProveedor:0,
   razonsocial:"",
   ruc:"",
+  direccion:"",
+  telefono:"",
+  celular:"",
+  contacto:"",
   estado:1,
   ubigeo:{
     idUbigeo: -1,
@@ -148,6 +154,10 @@ this.proveedor = {
   idProveedor:0,
   razonsocial:"",
   ruc:"",
+  direccion:"",
+  telefono:"",
+  celular:"",
+  contacto:"",
   estado:1,
   ubigeo:{
     idUbigeo: -1,
