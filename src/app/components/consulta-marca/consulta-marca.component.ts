@@ -11,8 +11,30 @@ import { PaisService } from 'src/app/services/pais.service';
 })
 export class ConsultaMarcaComponent implements OnInit {
 
+ 
+  nombre:string="";
+  descripcion:string="";
+  estado:number = -1;
+  selPais:number = -1;
 
-  constructor() { }
+  
+  marcas: Marca[] = [];
+  paises: Pais[]  = [];
+
+  constructor(private paisService: PaisService,private marcaService:MarcaService) { 
+      paisService.listaPais().subscribe(
+          (x) => this.paises = x
+    );
+  }
+
+  consultaMarca(){
+    this.marcaService.consultaMarca(this.nombre, this.descripcion, this.estado?1:0, this.selPais).subscribe(
+        (x) => {
+                this.marcas = x.lista
+                alert(x.mensaje);
+                }
+    );
+  }
 
   ngOnInit(): void {
   }
