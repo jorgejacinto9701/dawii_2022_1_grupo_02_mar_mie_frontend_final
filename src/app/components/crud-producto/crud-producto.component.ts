@@ -68,7 +68,7 @@ producto:Producto ={
     validaMarca:new FormControl('',[Validators.min(1)]),
     validaPais:new FormControl('',[Validators.min(1)])
   });
-
+  id="id_act_stock" 
     //para verificar que e pulsó el boton
     submitted = false;
     
