@@ -59,7 +59,6 @@
         </div>
     </div>
 
-
     <div class="modal fade"  id="idModalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
         <div class="modal-dialog" style="max-width: 50%;">
@@ -120,6 +119,13 @@
                                             </div> 
                                          </div>   
                                     </div>
+                                    <div class="col-lg-8">
+                                        <label for="id_reg_fechaCreacion">Fecha Creación</label>
+                                        <input [(ngModel)]="sede.fechaCreacion" type="date" placeholder="Ingrese Fecha Creación" class="form-control" name="fechaCreacion" 
+                                        id="id_reg_fechaCreacion" #validaFechaCreacion="ngModel" required pattern="{dd-mm-aa}"/>
+                                            <div>
+                                            </div>   
+                                    </div>
 
                                 </div>
 
@@ -140,8 +146,6 @@
                                         </div>
                                     </div>
                                 
-                                
-                                
                                 </div>
 
                         </div> 
@@ -158,8 +162,6 @@
                
                     </form>
                 </div>
-
-
 
             </div>
         </div>

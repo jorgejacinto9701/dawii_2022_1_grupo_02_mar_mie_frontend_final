@@ -36,7 +36,7 @@
                     <select  id="pais"   name="pais"   class="form-control" [(ngModel)]="selPais" >
                         <option value="-1">[Seleccione]</option>
                         <option *ngFor="let aux of pais"    value="{{ aux.idPais }}">
-                             {{ aux.idPais }}
+                             {{ aux.nombre }}
                         </option> 
                     </select>
                 </div>

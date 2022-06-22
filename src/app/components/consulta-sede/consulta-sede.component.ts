@@ -29,7 +29,7 @@ export class ConsultaSedeComponent implements OnInit {
 
   consultaSede(){
     this.sedeService.listaSedeFiltro(this.nombre, this.direccion,this.codigoPostal, this.selPais, this.estado?1:0).subscribe(
-      (x) => {
+      (x) => {SedeService
         this.sede = x.lista;
         alert(x.mensaje);
       }
