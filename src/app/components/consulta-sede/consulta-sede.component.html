@@ -69,6 +69,7 @@
                             <th>Nombre</th>
                             <th>Dirección</th>
                             <th>Codigo Postal</th>
+                            <th>Fecha Creación</th>
                             <th>País</th>
                             <th>Estado</th>
                         </tr>
@@ -79,7 +80,8 @@
                                  <td>{{ aux.idSede}}</td>     
                                  <td>{{ aux.nombre }}</td>   
                                  <td>{{ aux.direccion }}</td>
-                                 <td>{{ aux.codigoPostal }}</td>   
+                                 <td>{{ aux.codigoPostal }}</td>
+                                 <td>{{ aux.fechaCreacion }}</td>   
                                  <td>{{ aux.pais?.idPais }}</td>   
                                  <td>{{ aux.estado==1?'Activo':'Inactivo' }}</td>
                             </tr>
