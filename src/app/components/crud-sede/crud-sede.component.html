@@ -38,7 +38,9 @@
                         <tbody>
                             <tr *ngFor="let aux of sedes">
                                 <td>{{ aux.idSede }}</td>
+                                <td>{{ aux.nombre }}</td>
                                 <td>{{ aux.direccion }}</td>
+                                <td>{{ aux.fechaCreacion }}</td>
                                 <td>{{ aux.codigoPostal }}</td>
                                 <td>{{ aux.estado == 1 ? "Activo" : "Inactivo"}}</td>
                                 <td>{{ aux.pais!.idPais }}</td>
@@ -91,7 +93,7 @@
                                          </div>   
                                     </div>
                                     
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-4">
                                         <label for="id_reg_direccion">Dirección</label>
                                         <input [(ngModel)]="sede.direccion" type="text" placeholder="Ingrese Dirección" class="form-control" name="direccion" 
                                         id="id_reg_direccion" #validaDireccion="ngModel" required pattern="[a-zA-Z ]{3,40}"/>
@@ -106,10 +108,10 @@
                                          </div>   
                                     </div>
 
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-4">
                                         <label for="id_reg_codigoPostal">Codigo Postal</label>
                                         <input [(ngModel)]="sede.codigoPostal" type="text" placeholder="Ingrese Codigo Postal" class="form-control" name="codigoPostal" 
-                                        id="id_reg_codigoPostal" #validaCodgiPostal="ngModel" required pattern="{5}"/>
+                                        id="id_reg_codigoPostal" #validaCodgiPostal="ngModel" required pattern="[0-9]{5}"/>
                                         <div *ngIf="validaCodgiPostal.invalid && (validaCodgiPostal.dirty || validaCodgiPostal.touched)" class="alert alert-danger">
                                             <div *ngIf="validaCodgiPostal.errors!">
                                                El codigo postal es obligatorio
@@ -119,17 +121,18 @@
                                             </div> 
                                          </div>   
                                     </div>
-                                    <div class="col-lg-8">
-                                        <label for="id_reg_fechaCreacion">Fecha Creación</label>
-                                        <input [(ngModel)]="sede.fechaCreacion" type="date" placeholder="Ingrese Fecha Creación" class="form-control" name="fechaCreacion" 
-                                        id="id_reg_fechaCreacion" #validaFechaCreacion="ngModel" required pattern="{dd-mm-aa}"/>
-                                            <div>
-                                            </div>   
-                                    </div>
+                                    <div class="col-lg-4"> 
+                                        <label for="id_reg_fechaCreacion">Fecha Creación</label>        
+                                        <input [(ngModel)]="sede.fechaCreacion" type="date"class="form-control" name="fechaCreacion" 
+                                        id="id_reg_fechaCreacion" #validaFechaCreacion="ngModel" required/>
+                                        <div *ngIf="validaFechaCreacion.invalid && (validaFechaCreacion.dirty || validaFechaCreacion.touched)" class="alert alert-danger">
+                                            <div *ngIf="validaFechaCreacion.errors!required">
+                                                La fecha es obligatoria
+                                            </div>
+                                        </div>  
+                                    </div> 
 
-                                </div>
-
-
+                                </div> 
                                 <div class="row" style="margin-top: 2%">
                                     
                                     <div class="col-lg-4">
@@ -227,7 +230,7 @@
                                 <div class="col-lg-8">
                                     <label for="id_reg_codigoPostal">Codigo Postal</label>
                                     <input [(ngModel)]="sede.codigoPostal" type="text" placeholder="Ingrese Codigo Postal" class="form-control" name="codigoPostal" 
-                                    id="id_reg_codigoPostal" #validaCodgiPostal="ngModel" required pattern="{5}"/>
+                                    id="id_reg_codigoPostal" #validaCodgiPostal="ngModel" required pattern="[0-9]{5}"/>
                                     <div *ngIf="validaCodgiPostal.invalid && (validaCodgiPostal.dirty || validaCodgiPostal.touched)" class="alert alert-danger">
                                         <div *ngIf="validaCodgiPostal.errors!">
                                            El codigo postal es obligatorio
