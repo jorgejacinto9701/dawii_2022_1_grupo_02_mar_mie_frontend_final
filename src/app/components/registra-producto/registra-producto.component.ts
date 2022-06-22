@@ -16,7 +16,8 @@ import { ProductoService } from 'src/app/services/producto.service';
 export class RegistraProductoComponent implements OnInit {
    marca: Marca[]=[];
    pais: Pais[] = [];
- 
+   m : Marca[]= [];
+   p : Pais[] = [];
  
    producto:Producto ={
     idProducto: 0,
@@ -33,17 +34,40 @@ export class RegistraProductoComponent implements OnInit {
               idPais:-1}
   };
   
-constructor(private MarcaService:MarcaService, private ProductoService:ProductoService,
-   private PaisService:PaisService  ){
-  this.MarcaService.listaMarca().subscribe( (x)=>this.marca=x  );
-  this.PaisService.listaPais().subscribe( (x)=>this.pais=x  );
-  } 
+  constructor(private productoService:ProductoService,  private marcaService:MarcaService, private paisService:PaisService) {
+    this.marcaService.listaMarca().subscribe((x)=>this.m=x);
+    this.paisService.listaPais().subscribe((x)=>this.p=x);
+   }
 
-
-insertaProducto(){
-    this.ProductoService.registraProducto(this.producto).subscribe(
-      (x) => alert(x.mensaje)    );
-  }
+  registra(){  this.productoService.registraProducto(this.producto).subscribe(
+      (x)=>{  
+             
+       //document.getElementById("id_reg_registra")?.click();
+      //document.getElementById("btn_reg_registrar")?.click();  
+      document.getElementById("btn_act_limpiar")?.click();
+     alert(x.mensaje);     
+      
+            }
+    );
+    this.marca=[];
+    this.pais=[];
+      //limpiar los componentes del formulario a través de los ngModel
+      this.producto ={
+        idProducto: 0,
+              nombre: "",
+              serie: "",
+              durabilidad: "",
+              fechaVigencia: "",
+              precio: undefined,
+              stock: 0,
+              estado: 1,
+              marca:{
+                idMarca:-1,
+              },
+                pais:{
+                  idPais:-1,
+                },
+      }   }
 
   ngOnInit(): void {  }
 

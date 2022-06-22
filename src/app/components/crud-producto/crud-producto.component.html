@@ -111,8 +111,7 @@
                                             <span  *ngIf="validaDurabilidad.errors!">                                                
                                                     <li>La durabilidad es obligatorio</li>
                                                 <li>texto debe ser   mayor a 8 digitos</li>
-                                            </span>   
-                                           
+                                            </span>                                             
                                          </div>
                                     </div>
                                 </div>
@@ -251,7 +250,7 @@
                                 
                                 <div class="col-lg-2" style="margin-bottom: 3%">
                                     <label for="id_act_stock">Stock</label>
-                                    <input  [(ngModel)]="producto.stock" type="number"    class="form-control" name="stock" id="id_reg_stock"  #validaStock1="ngModel" required  minlength="1" pattern="[1-9]{1,10}"   />
+                                    <input  [(ngModel)]="producto.stock" type="number"    class="form-control" name="stock" id="id_reg_stock"  #validaStock1="ngModel" required   min="1" pattern="[0-9]{1,10000}"   />
                                     <div  *ngIf="validaStock1.invalid && (validaStock1.dirty || validaStock1.touched)" class="alert alert-danger" >
                                         <span   *ngIf="validaStock1.errors!">                                                
                                                 <p  > el stock es obligatorio</p>                                                
@@ -293,8 +292,8 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <label for="id_act_marca">Marca</label>
-                                    <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"  #validaMarca1="ngModel" required pattern >
-                                        <option value=""> [Seleccione] </option>
+                                    <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"  #validaMarca1="ngModel" pattern="[1-1000]{1,1000}" required >
+                                        <option value="-1"> [Seleccione] </option>
                                         <option *ngFor="let aux of m" value="{{ aux.idMarca}}">
                                             {{ aux.nombre }}
                                         </option> 
@@ -309,8 +308,8 @@
     
                                 <div class="col-lg-2">
                                     <label for="id_act_pais">Pais</label>
-                                    <select  [(ngModel)]="producto.pais!.idPais" class="form-control"  name="pais"  #validaPais1="ngModel" required >
-                                        <option value=""> [Seleccione] </option>
+                                    <select  [(ngModel)]="producto.pais!.idPais" class="form-control"  name="pais"  #validaPais1="ngModel" pattern="[1-1000]{1,1000}" required >
+                                        <option value="-1"> [Seleccione] </option>
                                         <option *ngFor="let aux of p" value="{{ aux.idPais}}">
                                             {{ aux.nombre }}
                                         </option>   
