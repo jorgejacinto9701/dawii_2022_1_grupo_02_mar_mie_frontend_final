@@ -18,25 +18,26 @@ export class RegistraProductoComponent implements OnInit {
    pais: Pais[] = [];
  
  
-  producto:Producto ={
-   marca: {    idMarca: -1,
-    pais:{    idPais:-1   }
-  }
-    
-}
+   producto:Producto ={
+    idProducto: 0,
+          nombre: "",
+          serie: "",
+          durabilidad: "",
+          fechaVigencia: "",
+          precio: undefined,
+          stock: 0,
+          estado: 1,
+          marca:{
+            idMarca:-1},
+            pais:{
+              idPais:-1}
+  };
   
 constructor(private MarcaService:MarcaService, private ProductoService:ProductoService,
    private PaisService:PaisService  ){
   this.MarcaService.listaMarca().subscribe( (x)=>this.marca=x  );
   this.PaisService.listaPais().subscribe( (x)=>this.pais=x  );
   } 
-  cargamarca(){
-    this.MarcaService.listaMarca().subscribe( (x)=>this.marca=x );
-  }
-
-cargapais(){
-  this.PaisService.listaPais().subscribe( (x)=>this.pais=x  );
-}
 
 
 insertaProducto(){
