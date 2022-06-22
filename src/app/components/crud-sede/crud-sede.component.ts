@@ -23,6 +23,7 @@ export class CrudSedeComponent implements OnInit {
     direccion:"",
     estado:1,
     codigoPostal:"",
+    fechaCreacion: new Date ('dd-mm-aa'),
     pais:{
       idPais:-1,
     }
@@ -59,7 +60,7 @@ actualizaEstado(aux : Sede){
 
 registra(){
    this.submitted = true;
-   this.sedeService.registraSedeCrud(this.sede).subscribe(
+   this.sedeService.registraSede(this.sede).subscribe(
     (x) => {
       document.getElementById("btn_reg_limpiar")?.click();
       document.getElementById("btn_reg_cerrar")?.click();
@@ -80,6 +81,7 @@ registra(){
            direccion:"",
            estado:1,
            codigoPostal:"",
+           fechaCreacion: new Date('dd-mm-aa'),
            pais:{
              idPais: -1
            }
@@ -117,6 +119,7 @@ actualiza(){
         direccion:"",
         estado:1,
         codigoPostal:"",
+        fechaCreacion: new Date('dd-mm-aa'),
         pais:{
           idPais: -1
         }
