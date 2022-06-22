@@ -13,6 +13,7 @@ export class ConsultaSedeComponent implements OnInit {
 
   nombre: string="";
   direccion : string="";
+  codigoPostal: string="";
   selPais: number= -1;
   estado: boolean=true;
 
@@ -27,7 +28,7 @@ export class ConsultaSedeComponent implements OnInit {
   }
 
   consultaSede(){
-    this.sedeService.listaSedeFiltro(this.nombre, this.direccion, this.selPais, this.estado?1:0).subscribe(
+    this.sedeService.listaSedeFiltro(this.nombre, this.direccion,this.codigoPostal, this.selPais, this.estado?1:0).subscribe(
       (x) => {
         this.sede = x.lista;
         alert(x.mensaje);

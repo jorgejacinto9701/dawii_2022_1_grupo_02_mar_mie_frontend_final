@@ -30,8 +30,8 @@ listaPais():Observable<string[]>{
   return this.http.get<string[]>(baseUrlUtil+"listaPais");
 }
 
-listaSedeFiltro(nombre:string, direccion:string, idPais:number, estado:number):Observable<any> {
-  const params = new HttpParams().set("nombre", nombre).set("direccion", direccion).set("idPais", idPais).set("estado", estado);  
+listaSedeFiltro(nombre:string, direccion:string, codigoPostal:string,  idPais:number, estado:number):Observable<any> {
+  const params = new HttpParams().set("nombre", nombre).set("direccion", direccion).set("codigoPostal",codigoPostal).set("idPais", idPais).set("estado", estado);  
   return this.http.get<any>(baseUrlUtil + "/listaSedeConParametros", {params});
 }
 
