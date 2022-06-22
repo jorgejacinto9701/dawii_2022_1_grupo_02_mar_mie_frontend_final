@@ -123,7 +123,7 @@
                                         <input [(ngModel)]="producto.fechaVigencia" type="date"    class="form-control" name="fechaVigencia" id="id_reg_fechaVigencia" #validaFecha="ngModel" required pattern="^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$"/>
                                         <div *ngIf="validaFecha.invalid && (validaFecha.dirty || validaFecha.touched)" class="alert alert-danger">
                                             <span  *ngIf="validaFecha.errors!">                                                
-                                                <p class=" text-danger">La fecha es obligatorio</p>                                               
+                                                <p  >La fecha es obligatorio</p>                                               
                                             </span>   
                                            
                                          </div>
@@ -134,7 +134,7 @@
                                         <input  [(ngModel)]="producto.precio" type="text"    class="form-control" name="precio" id="id_reg_precio"  #validaPrecio="ngModel" minlength="1" maxlength="10" required pattern="[0-9]{1,10}" />
                                         <div  *ngIf="validaPrecio.invalid && (validaPrecio.dirty || validaPrecio.touched)" class="alert alert-danger" >
                                             <table  *ngIf="validaPrecio.errors!">                                                
-                                                <p class=" text-danger">el precio es obligatorio</p>                                                
+                                                <p  >el precio es obligatorio</p>                                                
                                             </table>                                              
                                          </div>
                                     </div>
@@ -143,7 +143,7 @@
                                         <input  [(ngModel)]="producto.stock" type="number"    class="form-control" name="stock" id="id_reg_stock"  #validaStock="ngModel" required pattern="[1-9]{1,10}"   />
                                         <div  *ngIf="validaStock.invalid && (validaStock.dirty || validaStock.touched)" class="alert alert-danger" >
                                             <span   *ngIf="validaStock.errors!">                                                
-                                                    <p class=" text-danger"> el stock es obligatorio</p>                                                
+                                                    <p  > el stock es obligatorio</p>                                                
                                             </span>                                              
                                          </div>     
                                     </div>
@@ -152,12 +152,17 @@
                                 <div class="row" style="margin-top: 5%">
                                     <div class="col-lg-4">
                                         <label for="id_reg_marca">Marca</label>
-                                        <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"  #validaMarca="ngModel" required  >
+                                        <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"  #validaMarca="ngModel" required pattern="" >
                                             <option value="-1"> [Seleccione] </option>
                                             <option *ngFor="let aux of m" value="{{ aux.idMarca }}"> 
                                                         {{ aux.nombre}}
                                             </option>
                                         </select>
+                                        <div  *ngIf="validaMarca.invalid && (validaMarca.dirty || validaMarca.touched)" class="alert alert-danger" required>
+                                            <span   *ngIf="validaMarca.errors!">                                                
+                                                    <p  > la marca es obligatorio</p>                                                
+                                            </span>                                              
+                                         </div>
                                         
                                     </div>
 
@@ -168,7 +173,12 @@
                                              <option *ngFor="let aux of  p" value= "{{ aux.idPais}}"> 
                                                         {{ aux.nombre }}
                                              </option>
-                                        </select>
+                                            </select>
+                                        <div  *ngIf="validaPais.invalid && (validaPais.dirty || validaPais.touched)" class="alert alert-danger" required>
+                                            <span *ngIf="validaPais.errors!">                                                
+                                                    <p>pais  es obligatorio</p>                                                
+                                            </span>                                              
+                                         </div>
                                     </div>                               
                                 </div>
 
