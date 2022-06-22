@@ -150,7 +150,7 @@
                                 <div class="row" style="margin-top: 5%">
                                     <div class="col-lg-4">
                                         <label for="id_reg_marca">Marca</label>
-                                        <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"  #validaMarca="ngModel" required pattern >
+                                        <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"  #validaMarca="ngModel" min="1" required pattern="[1-9000]{1,90000}"  >
                                             <option value="-1"> [Seleccione] </option>
                                             <option *ngFor="let aux of m" value="{{ aux.idMarca }}"> 
                                                         {{ aux.nombre}}
@@ -166,7 +166,7 @@
 
                                     <div class="col-lg-4">
                                         <label  for="id_reg_pais">Pais</label>
-                                        <select  [(ngModel)]="producto.pais!.idPais" class="form-control"  name="pais"  #validaPais="ngModel" required >
+                                        <select  [(ngModel)]="producto.pais!.idPais" class="form-control"  name="pais"  #validaPais="ngModel" min="1" required pattern="[1-9000]{1,90000}"  >
                                             <option value="-1"> [Seleccione] </option>
                                              <option *ngFor="let aux of  p" value= "{{ aux.idPais}}"> 
                                                         {{ aux.nombre }}

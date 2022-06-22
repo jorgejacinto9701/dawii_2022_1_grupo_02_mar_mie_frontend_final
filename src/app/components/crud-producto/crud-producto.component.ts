@@ -44,7 +44,8 @@ producto:Producto ={
     this.paisService.listaPais().subscribe((x)=>this.p=x);
    }
    
-  ngOnInit(): void {  }
+  ngOnInit(): void {
+   }
 
   formsActualiza = new FormGroup({
     validaNombre: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]{3,30}')]),
