@@ -27,6 +27,10 @@
                                 <th style="width: 5%">#</th>
                                 <th style="width: 30%">RAZONSOCIAL</th>
                                 <th style="width: 10%">RUC</th>
+                                <th style="width: 30%">DIRECCION</th>
+                                <th style="width: 10%">TELEFONO</th>
+                                <th style="width: 30%">CELULAR</th>
+                                <th style="width: 10%">CONTACTO</th>
                                 <th style="width: 10%">Estado</th>
                                 <th style="width: 31%">Ubigeo</th>
                                 <th style="width: 7%"></th>
@@ -39,6 +43,10 @@
                                 <td>{{ aux.idProveedor }}</td>
                                 <td>{{ aux.razonsocial }}</td>
                                 <td>{{ aux.ruc }}</td>
+                                <td>{{ aux.direccion }}</td>
+                                <td>{{ aux.telefono }}</td>
+                                <td>{{ aux.celular }}</td>
+                                <td>{{ aux.contacto }}</td>
                                 <td>{{ aux.estado == 1 ? "Activo" : "Inactivo"}}</td>
                                 <td>{{ aux.ubigeo!.departamento }} - {{ aux.ubigeo!.provincia }} -{{ aux.ubigeo!.distrito }}</td>
                                 <td>
@@ -77,35 +85,87 @@
                             
                                 <div  class="row">
                                     <div class="col-lg-8">
-                                        <label for="id_reg_razonsocial">Razonsocial</label>
+                                        <label for="id_reg_razonsocial">Razon Social</label>
                                         <input [(ngModel)]="proveedor.razonsocial" type="text" placeholder="Ingrese la razonsocial" class="form-control" name="razonsocial" 
                                         id="id_reg_razonsocial" #validaRazonsocial="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
                                         <div *ngIf="validaRazonsocial.invalid && (validaRazonsocial.dirty || validaRazonsocial.touched)" class="alert alert-danger">
                                             <div *ngIf="validaRazonsocial.errors!">
-                                               La razonsocial obligatorio
+                                               La Razon Social es obligatorio
                                             </div>   
                                             <div *ngIf="validaRazonsocial.errors!">
-                                                La razonsocial es de 3 a 30 caracteres
+                                                La Razon Social es de 3 a 30 caracteres
                                             </div> 
                                          </div>   
                                     </div>
                                     
                                     <div class="col-lg-4">
                                         <label for="id_reg_ruc">Ruc</label>
-                                        <input  [(ngModel)]="proveedor.ruc" type="text"  placeholder="Ingrese ruc" class="form-control" name="ruc" id="id_reg_ruc"  #validaRuc="ngModel" required pattern="[0-9]{8}"/>
+                                        <input  [(ngModel)]="proveedor.ruc" type="text"  placeholder="Ingrese ruc" class="form-control" name="ruc" id="id_reg_ruc"  #validaRuc="ngModel" required pattern="[0-9]{11}"/>
                                         <div *ngIf="validaRuc.invalid && (validaRuc.dirty || validaRuc.touched)" class="alert alert-danger">
                                             <div *ngIf="validaRuc.errors!">
                                                      El Ruc es obligatorio
                                             </div>  
                                             <div *ngIf="validaRuc.errors!">
-                                                     El Ruc es de 8 dígitos
+                                                     El Ruc es de 11 dígitos
                                              </div>    
                                        </div> 
                                     </div>
+
+                                        <div class="col-lg-4">
+                                            <label for="id_reg_direccion">Direccion</label>
+                                            <input [(ngModel)]="proveedor.direccion"  type="text" placeholder="Ingrese la direccion" class="form-control" name="validaDireccion" 
+                                            id="id_reg_direccion" #validaDireccion="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                            <div *ngIf="validaDireccion.invalid && (validaDireccion.dirty || validaDireccion.touched)" class="alert alert-danger">
+                                                <div *ngIf="validaDireccion.errors!">
+                                                    La dirrecion es obligatorio
+                                                </div>   
+                                                <div *ngIf="validaDireccion.errors!">
+                                                    La dirrecion es de 3 a 30 caracteres
+                                                </div> 
+                                             </div>   
+                                        </div>
+
+                                             <div class="col-lg-4">
+                                                <label for="id_reg_telefono">Telefono</label>
+                                                <input  [(ngModel)]="proveedor.telefono" type="text"  placeholder="Ingrese telefono" class="form-control" name="telefono" maxlength="9" id="id_reg_telefono"  #validaTelefono="ngModel" required pattern="[0-9]{9}"/>
+                                                <div *ngIf="validaTelefono.invalid && (validaTelefono.dirty || validaTelefono.touched)" class="alert alert-danger">
+                                                    <div *ngIf="validaTelefono.errors!">
+                                                             El telefono es obligatorio
+                                                    </div>  
+                                                    <div *ngIf="validaTelefono.errors!">
+                                                             El telefono es obligatorio 9 digitos
+                                                            </div>    
+                                                        </div> 
+                                                     </div>
+                                                     <div class="col-lg-4">
+                                                        <label for="id_reg_celular">Celular</label>
+                                                        <input  [(ngModel)]="proveedor.celular" type="text"  placeholder="Ingrese celular" class="form-control" name="celular" maxlength="9" id="id_reg_celular"  #validaCelular="ngModel" required pattern="[0-9]{9}"/>
+                                                        <div *ngIf="validaCelular.invalid && (validaCelular.dirty || validaCelular.touched)" class="alert alert-danger">
+                                                            <div *ngIf="validaCelular.errors!">
+                                                                     El Celular es obligatorio
+                                                            </div>  
+                                                            <div *ngIf="validaCelular.errors!">
+                                                                     El Celular es obligatorio 9 digitos
+                                                                    </div>    
+                                                                </div> 
+                                                             </div>
+                                                             <div class="col-lg-4">
+                                                                <label for="id_reg_contacto">Contacto</label>
+                                                                <input  [(ngModel)]="proveedor.contacto" type="text"  placeholder="Ingrese contacto" class="form-control" name="contacto"  id="id_reg_contacto"  #validaContacto="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                                                <div *ngIf="validaContacto.invalid && (validaContacto.dirty || validaContacto.touched)" class="alert alert-danger">
+                                                                    <div *ngIf="validaContacto.errors!">
+                                                                             El Contacto es obligatorio
+                                                                    </div>  
+                                                                    <div *ngIf="validaContacto.errors!">
+                                                                             El Contacto es obligatorio de 3 a 30 caracteres
+                                                                            </div>    
+                                                                        </div> 
+                                                                     </div>
+
+
+
                                 </div>
-
-
-                                <div class="row" style="margin-top: 5%">
+                              <div class="row" style="margin-top: 5%">
                                     
                                     <div class="col-lg-4">
                                         <label for="id_reg_departamento">Departamento</label>
@@ -187,15 +247,15 @@
 
                             <div  class="row">
                                 <div class="col-lg-8">
-                                    <label for="id_act_razonsocial">Razonsocial</label>
+                                    <label for="id_act_razonsocial">Razon Social</label>
                                     <input [(ngModel)]="proveedor.razonsocial"  type="text" placeholder="Ingrese la razonsocial" class="form-control" name="validaRazonsocial" 
                                     id="id_act_razonsocial" #validaRazonsocial="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
                                     <div *ngIf="validaRazonsocial.invalid && (validaRazonsocial.dirty || validaRazonsocial.touched)" class="alert alert-danger">
                                         <div *ngIf="validaRazonsocial.errors!">
-                                            La razonsocial obligatorio
+                                            La Razon Social es obligatorio
                                         </div>   
                                         <div *ngIf="validaRazonsocial.errors!">
-                                            La razonsocial es de 3 a 30 caracteres
+                                            La Razon Social es de 3 a 30 caracteres
                                         </div> 
                                      </div>   
                                 </div>
@@ -216,19 +276,68 @@
 
                                 <div class="col-lg-2">
                                     <label for="id_act_ruc">Ruc</label>
-                                    <input [(ngModel)]="proveedor.ruc"  type="text" placeholder="Ingrese ruc" class="form-control" name="ruc" id="id_act_ruc"  maxlength="8" #validaRuc="ngModel" required pattern="[0-9]{8}"/>
+                                    <input [(ngModel)]="proveedor.ruc"  type="text" placeholder="Ingrese ruc" class="form-control" name="ruc" id="id_act_ruc"  maxlength="8" #validaRuc="ngModel" required pattern="[0-9]{11}"/>
                                     <div *ngIf="validaRuc.invalid && (validaRuc.dirty || validaRuc.touched)" class="alert alert-danger">
                                         <div *ngIf="validaRuc.errors!">
                                                  El Ruc es obligatorio
                                         </div>  
                                         <div *ngIf="validaRuc.errors!">
-                                                 El Ruc es de 8 dígitos
+                                                 El Ruc es de 11 dígitos
                                          </div>    
                                    </div> 
                                 </div>
+
+                                <div class="col-lg-4">
+                                    <label for="id_act_direccion">Direccion</label>
+                                    <input [(ngModel)]="proveedor.direccion"  type="text" placeholder="Ingrese la direccion" class="form-control" name="validaDireccion" 
+                                    id="id_act_direccion" #validaDireccion="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                    <div *ngIf="validaDireccion.invalid && (validaDireccion.dirty || validaDireccion.touched)" class="alert alert-danger">
+                                        <div *ngIf="validaDireccion.errors!">
+                                            La dirrecion obligatorio
+                                        </div>   
+                                        <div *ngIf="validaDireccion.errors!">
+                                            La dirrecion es de 3 a 30 caracteres
+                                        </div> 
+                                     </div>   
+                                </div>
+                                         <div class="col-lg-2">
+                                            <label for="id_act_telefono">Telefono</label>
+                                            <input  [(ngModel)]="proveedor.telefono" type="text"  placeholder="Ingrese telefono" class="form-control" name="telefono" maxlength="9" id="id_act_telefono"  #validaTelefono="ngModel" required pattern="[0-9]{9}"/>
+                                            <div *ngIf="validaTelefono.invalid && (validaTelefono.dirty || validaTelefono.touched)" class="alert alert-danger">
+                                                <div *ngIf="validaTelefono.errors!">
+                                                         El telefono es obligatorio
+                                                </div>  
+                                                <div *ngIf="validaTelefono.errors!">
+                                                         El telefono es obligatorio 9 digitos
+                                                        </div>    
+                                                    </div> 
+                                                 </div>
+                                                 <div class="col-lg-4">
+                                                    <label for="id_act_celular">Celular</label>
+                                                    <input  [(ngModel)]="proveedor.celular" type="text"  placeholder="Ingrese celular" class="form-control" name="celular" maxlength="9" id="id_act_celular"  #validaCelular="ngModel" required pattern="[0-9]{9}"/>
+                                                    <div *ngIf="validaCelular.invalid && (validaCelular.dirty || validaCelular.touched)" class="alert alert-danger">
+                                                        <div *ngIf="validaCelular.errors!">
+                                                                 El Celular es obligatorio
+                                                        </div>  
+                                                        <div *ngIf="validaCelular.errors!">
+                                                                 El Celular es obligatorio 9 digitos
+                                                                </div>    
+                                                            </div> 
+                                                         </div>
+                                                         <div class="col-lg-4">
+                                                            <label for="id_act_contacto">Contacto</label>
+                                                            <input  [(ngModel)]="proveedor.contacto" type="text"  placeholder="Ingrese contacto" class="form-control" name="contacto"  id="id_act_contacto"  #validaContacto="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                                            <div *ngIf="validaContacto.invalid && (validaContacto.dirty || validaContacto.touched)" class="alert alert-danger">
+                                                                <div *ngIf="validaContacto.errors!">
+                                                                         El Contacto es obligatorio
+                                                                </div>  
+                                                                <div *ngIf="validaContacto.errors!">
+                                                                         El Contacto es obligatorio de 3 a 30 caracteres
+                                                                        </div>    
+                                                                    </div> 
+                                                                 </div>
+
                             </div>
-    
-    
                             <div class="row" style="margin-top: 5%">
                                 <div class="col-lg-4">
                                     <label for="id_act_departamento">Departamento</label>
