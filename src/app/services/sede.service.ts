@@ -33,11 +33,11 @@ listaPais():Observable<string[]>{
 
 listaSedeFiltro(nombre:string, direccion:string, codigoPostal:string,  idPais:number, estado:number):Observable<any> {
   const params = new HttpParams().set("nombre", nombre).set("direccion", direccion).set("codigoPostal",codigoPostal).set("idPais", idPais).set("estado", estado);  
-  return this.http.get<any>(baseUrlUtil + "/listaSedeConParametros", {params});
+  return this.http.get<any>(baseUrlSede + "/listaSedeConParametros", {params});
 }
 
 consulta(filtro:string):Observable<Sede[]>{
-  return this.http.get<Sede[]>(baseUrlUtil + "/listaSedePorNombreLike/" +filtro );
+  return this.http.get<Sede[]>(baseUrlSede + "/listaSedePorNombreLike/" +filtro );
  }
 
  registra(aux:Sede):Observable<any>{
