@@ -16,12 +16,12 @@
                 </div>
             
                 <div class="col-lg-3">
-                    <label for="direccion">Direccion</label>
+                    <label for="direccion">Dirección</label>
                     <input type="text" class="form-control" name="direccion" id="direccion" [(ngModel)] = "sede.direccion" />
                 </div>
 
                 <div class="col-lg-3">
-                        <label for="fechaCreacion">Fecha de Creacion</label>
+                        <label for="fechaCreacion">Fecha de Creación</label>
                         <input type="text" class="form-control" name="fechaCreacion" id="fechaCreacion" [(ngModel)] = "sede.fechaCreacion" />
                 </div>
          </div>
@@ -35,7 +35,7 @@
         </div>
 
             <div class="col-lg-3">
-                <label for="pais">Pais</label>
+                <label for="pais">País</label>
                 <select  id="pais" name="pais" class="form-control"  [(ngModel)] = "sede.pais!.idPais">
                     <option value="-1"> [Seleccione] </option>   
                     <option *ngFor="let aux of pais" value="{{aux.idPais}}">

@@ -24,9 +24,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 5%">#</th>
-                                <th style="width: 30%">Nombre</th>
-                                <th style="width: 10%">Dirección</th>
-                                <th style="width: 10%">Codigo Postal</th>
+                                <th style="width: 15%">Nombre</th>
+                                <th style="width: 15%">Dirección</th>
+                                <th style="width: 15%">Fecha Creación</th>
+                                <th style="width: 15%">Codigo Postal</th>
                                 <th style="width: 10%">Estado</th>
                                 <th style="width: 31%">Pais</th>
                                 <th style="width: 7%"></th>
@@ -61,7 +62,7 @@
 
     <div class="modal fade"  id="idModalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-        <div class="modal-dialog" style="max-width: 70%;">
+        <div class="modal-dialog" style="max-width: 50%;">
             <div class="modal-content" >
 
                 <div class="modal-header">
@@ -94,14 +95,14 @@
                                     <div class="col-lg-8">
                                         <label for="id_reg_direccion">Dirección</label>
                                         <input [(ngModel)]="sede.direccion" type="text" placeholder="Ingrese Dirección" class="form-control" name="direccion" 
-                                        id="id_reg_direccion" #validaDireccion="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                        id="id_reg_direccion" #validaDireccion="ngModel" required pattern="[a-zA-Z ]{3,40}"/>
                                         <div *ngIf="validaDireccion.invalid && (validaDireccion.dirty || validaDireccion.touched)" class="alert alert-danger">
                                             <div *ngIf="validaDireccion.errors!">
                                                La dirección es obligatorio
                                             </div>   
 
                                             <div *ngIf="validaDireccion.errors!">
-                                                La dirección es de 3 a 30 caracteres
+                                                La dirección es de 3 a 40 caracteres
                                             </div> 
                                          </div>   
                                     </div>
@@ -123,10 +124,10 @@
                                 </div>
 
 
-                                <div class="row" style="margin-top: 5%">
+                                <div class="row" style="margin-top: 2%">
                                     
                                     <div class="col-lg-4">
-                                        <label for="id_reg_pais">Pais</label>
+                                        <label for="id_reg_pais">País</label>
                                         <select [(ngModel)]="sede.pais!.idPais"   class="form-control" class="form-control" name="pais" id="id_reg_pais"  #validaPais="ngModel" pattern="[0-9]{1,9}">
                                             <option value="-1"> [Seleccione] </option>
                                                 <option *ngFor="let aux of  paises" value="{{ aux.idPais }}"> 
@@ -240,7 +241,7 @@
                             <div class="row" style="margin-top: 5%">
                                    
                                 <div class="col-lg-4">
-                                    <label for="id_reg_pais">Pais</label>
+                                    <label for="id_reg_pais">País</label>
                                     <select [(ngModel)]="sede.pais!.idPais"   class="form-control" class="form-control" name="pais" id="id_reg_pais"  #validaPais="ngModel" pattern="[0-9]{1,9}">
                                         <option value="-1"> [Seleccione] </option>
                                              <option *ngFor="let aux of  paises" value="{{ aux.idPais }}"> 

@@ -17,9 +17,13 @@
                 <div class="col-lg-2">
                     <input type="text" class="form-control" name="nombre" id="nombre"  [(ngModel)]= "nombre" />
                 </div>
-                <label for="direccion" class="col-lg-1">Direccion</label>
+                <label for="direccion" class="col-lg-1">Dirección</label>
                 <div class="col-lg-2">
                     <input type="text" class="form-control" name="direccion" id="direccion"  [(ngModel)]= "direccion" />
+                </div>
+                <label for="codigoPostal" class="col-lg-1">Codigo Postal</label>
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" name="codigoPostal" id="codigoPostal"  [(ngModel)]= "codigoPostal" />
                 </div>
                 <div class="col-lg-2">
                     <div class="custom-control custom-switch">
@@ -27,26 +31,22 @@
                         <label class="custom-control-label" for="estado">Estado</label>
                     </div>
                 </div>
-                <label for="codigoPostal" class="col-lg-1">Codigo Postal</label>
-                <div class="col-lg-2">
-                    <input type="text" class="form-control" name="codigoPostal" id="codigoPostal"  [(ngModel)]= "codigoPostal" />
-                </div>
-                <div class="col-lg-2">
-                    <button class="btn btn-success"  >Filtrar</button>
+                <div class="col-lg-4">
+                    <label for="pais">País</label>
+                    <select  id="pais"   name="pais"   class="form-control" [(ngModel)]="selPais" >
+                        <option value="-1">[Seleccione]</option>
+                        <option *ngFor="let aux of pais"    value="{{ aux.idPais }}">
+                             {{ aux.idPais }}
+                        </option> 
+                    </select>
                 </div>
 
         </div>
-            <div class="col-lg-4">
-                <label for="pais">Pais</label>
-                <select  id="pais"   name="pais"   class="form-control" [(ngModel)]="selPais" >
-                    <option value="-1">[Seleccione]</option>
-                    <option *ngFor="let aux of pais"    value="{{ aux.idPais }}">
-                         {{ aux.idPais }}
-                    </option> 
-                </select>
-            </div>
-
+        <div class="col-lg-2" style="padding: 3%">
+            <button class="btn btn-success"  >Filtrar</button>
+        </div>
          </div>
+         
 
          <!-- <div class="row" style="margin-top: 2%">    
                 <div class="col-lg-4">
@@ -67,18 +67,19 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Direccion</th>
-                            <th>Pais</th>
+                            <th>Dirección</th>
+                            <th>Codigo Postal</th>
+                            <th>País</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                             <tr *ngFor = "let aux of sede" >
 
-                                 <td>{{ aux.idSede}}</td>   
-                                 <td>{{ aux.idSede }}</td>   
+                                 <td>{{ aux.idSede}}</td>     
                                  <td>{{ aux.nombre }}</td>   
-                                 <td>{{ aux.direccion }}</td>   
+                                 <td>{{ aux.direccion }}</td>
+                                 <td>{{ aux.codigoPostal }}</td>   
                                  <td>{{ aux.pais?.idPais }}</td>   
                                  <td>{{ aux.estado==1?'Activo':'Inactivo' }}</td>
                             </tr>
