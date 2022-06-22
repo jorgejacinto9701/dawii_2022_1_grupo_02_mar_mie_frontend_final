@@ -12,12 +12,33 @@ const baseUrlMarca = AppSettings.API_ENDPOINT+ '/marca';
 })
 export class MarcaService {
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http:HttpClient) {  }
 
   listaMarca(): Observable<Marca[]> {
     return this.http.get<Marca[]>(baseUrlUtil + '/listaMarca');
   }
-  listaMarca1(): Observable<string[]> {
-    return this.http.get<string[]>(baseUrlUtil + '/listaMarca');
+
+  registraMarca(data:Marca): Observable<any>{
+    return this.http.post(baseUrlMarca, data);
+  }
+
+  consultaMarca(nombre:string, descripcion:string, estado:number, idPais:number):Observable<any> {
+
+    const params = new HttpParams().set("nombre", nombre).set("descripcion", descripcion).set("estado", estado).set("idPais", idPais);
+    
+    return this.http.get(baseUrlMarca+"/porNombreDescripcionEstadoPaisConParametros", {params});
+  }
+
+  listarMarca(filtro:string):Observable<Marca[]> {
+    return this.http.get<Marca[]>(baseUrlMarca + "/listaMarcaPorNombreLike/"+ filtro);
+  }  
+  registrarMarca(obj: Marca): Observable<any>{
+    return this.http.post(baseUrlMarca+ "/registraMarca", obj);
+  }
+  actualizarMarca(obj: Marca): Observable<any>{
+    return this.http.put(baseUrlMarca + "/actualizaMarca", obj);
+  }
+  eliminarMarca(id : any): Observable<any>{
+    return this.http.delete(baseUrlMarca + "/eliminaMarca/"+ id);
   }
 }
