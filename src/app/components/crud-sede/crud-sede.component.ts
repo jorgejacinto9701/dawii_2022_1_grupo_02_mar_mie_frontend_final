@@ -23,7 +23,7 @@ export class CrudSedeComponent implements OnInit {
     direccion:"",
     estado:1,
     codigoPostal:"",
-    fechaCreacion: new Date ('dd-mm-aa'),
+    fechaCreacion: new Date ('dd-mm-aaaa'),
     pais:{
       idPais:-1,
     }
@@ -81,7 +81,7 @@ registra(){
            direccion:"",
            estado:1,
            codigoPostal:"",
-           fechaCreacion: new Date('dd-mm-aa'),
+           fechaCreacion: new Date('dd-mm-aaaa'),
            pais:{
              idPais: -1
            }
