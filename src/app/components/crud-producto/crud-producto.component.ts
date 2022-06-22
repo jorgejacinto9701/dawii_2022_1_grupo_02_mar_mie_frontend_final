@@ -69,11 +69,11 @@ actualizaEstado(aux:Producto){
 }
 buscar(aux:Producto){
   this.producto=aux;
-  this.marcaService.listaMarca1().subscribe(
-    response =>this.marcas=response
+  this.marcaService.listaMarca().subscribe(
+    response =>this.m=response
   );
-  this.paisService.listaPais1().subscribe(
-    response =>this.paises=response
+  this.paisService.listaPais().subscribe(
+    response =>this.p=response
   );
 }
 actualiza(){
@@ -81,14 +81,15 @@ actualiza(){
     (x) => {
       document.getElementById("btn_act_limpiar")?.click();
       document.getElementById("btn_act_cerrar")?.click();
-      alert(x.mensaje);
-      this.productoService.listaProducto1(this.filtro==""?"todos" : this.filtro).subscribe(
-        (x) => this.productos = x
-  );
+      
+      this.productoService.listaProducto1(this.filtro==""?"todos": this.filtro).subscribe(
+        (x) => this.productos = x  );
+        alert(x.mensaje);
 }
-  );
-  this.marcas=[];
-  this.paises=[];
+  ); 
+  this.m=[];
+  this.p=[];
+ 
      //limpiar los componentes del formulario a través de los ngModel
   this.producto ={
     idProducto: 0,
@@ -96,7 +97,7 @@ actualiza(){
           serie: "",
           durabilidad: "",
           fechaVigencia: "",
-          precio: 0,
+          precio: undefined,
           stock: 0,
           estado: 1,
           marca:{
@@ -107,29 +108,30 @@ actualiza(){
             },
   }
   }
+   
   registra(){
   this.productoService.registraProducto(this.producto).subscribe(
     (x)=>{      
-    
+     
+    document.getElementById("btn_reg_limpiar")?.click();  
     document.getElementById("btn_reg_cerrar")?.click();
-      document.getElementById("btn_reg_limpiar")?.click();
-  //  document.getElementById("id_reg_registra")?.click();
-      alert(x.mensaje);
-      this.productoService.listaProducto1(this.filtro=="todos"?"todos":this.filtro).subscribe(
-        (x)=> this.productos=x
-      );
+    //document.getElementById("id_reg_registra")?.click();
+    
+      this.productoService.listaProducto1(this.filtro==""?"todos":this.filtro).subscribe(
+        (x)=> this.productos=x );
+        alert(x.mensaje);
     }
   );
-  this.m=[];
-  this.p=[];
+  this.marcas=[];
+  this.paises=[];
     //limpiar los componentes del formulario a través de los ngModel
     this.producto ={
       idProducto: 0,
             nombre: "",
             serie: "",
             durabilidad: "",
-            fechaVigencia: "2023-01-01",
-            precio: 0,
+            fechaVigencia: "",
+            precio: undefined,
             stock: 0,
             estado: 1,
             marca:{
@@ -142,8 +144,7 @@ actualiza(){
 }
 
 elimina(aux: Producto){
-  this.productoService.eliminaProducto(aux.idProducto).subscribe(
-   
+  this.productoService.eliminaProducto(aux.idProducto).subscribe(   
     (x) => { 
       this.productoService.listaProducto1(this.filtro==""?"todos":this.filtro).subscribe(
      (x) => this.productos=x );
