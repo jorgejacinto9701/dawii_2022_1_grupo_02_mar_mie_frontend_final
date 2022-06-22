@@ -225,12 +225,12 @@
     
                                 <div class="col-lg-3">
                                     <label for="id_act_estado">Estado</label>
-                                    <select [(ngModel)]="producto.estado"  id="id_act_estado" name="estado" class="form-control" #ValidaEstado="ngModel" required>
+                                    <select [(ngModel)]="producto.estado"  id="id_act_estado" name="estado" class="form-control" #ValidaEstado1="ngModel" required>
                                         <option value=""> [Seleccione] </option>
                                         <option value="1"> Activo </option>
                                         <option value="0"> Inactivo </option>
-                                    </select><div *ngIf="ValidaEstado.invalid && (ValidaEstado.dirty || ValidaEstado.touched)" class="alert alert-danger">
-                                        <span *ngIf="ValidaEstado.errors!">                                                
+                                    </select><div *ngIf="ValidaEstado1.invalid && (ValidaEstado1.dirty || ValidaEstado1.touched)" class="alert alert-danger">
+                                        <span *ngIf="ValidaEstado1.errors!">                                                
                                                 <li>El estado es obligatorio</li>                                    
                                         </span>                                           
                                      </div> 
@@ -292,7 +292,7 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <label for="id_act_marca">Marca</label>
-                                    <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"  #validaMarca1="ngModel" pattern="[1-1000]{1,1000}" required >
+                                    <select [(ngModel)]="producto.marca!.idMarca" class="form-control"  name="marca"  #validaMarca1="ngModel" min="1" required pattern="[1-9000]{1,90000}"  >
                                         <option value="-1"> [Seleccione] </option>
                                         <option *ngFor="let aux of m" value="{{ aux.idMarca}}">
                                             {{ aux.nombre }}
@@ -308,7 +308,7 @@
     
                                 <div class="col-lg-2">
                                     <label for="id_act_pais">Pais</label>
-                                    <select  [(ngModel)]="producto.pais!.idPais" class="form-control"  name="pais"  #validaPais1="ngModel" pattern="[1-1000]{1,1000}" required >
+                                    <select  [(ngModel)]="producto.pais!.idPais" class="form-control"  name="pais"  #validaPais1="ngModel" min="1" required pattern="[1-9000]{1,90000}"  >
                                         <option value="-1"> [Seleccione] </option>
                                         <option *ngFor="let aux of p" value="{{ aux.idPais}}">
                                             {{ aux.nombre }}
