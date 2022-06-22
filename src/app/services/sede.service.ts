@@ -24,7 +24,7 @@ listaSede():Observable<string[]>{
  }
 
  registrarSede(data:Sede) : Observable<any>{
-  return this.http.post(baseUrlUtil,data);
+  return this.http.post(baseUrlSede,data);
 }
 
 listaPais():Observable<string[]>{
