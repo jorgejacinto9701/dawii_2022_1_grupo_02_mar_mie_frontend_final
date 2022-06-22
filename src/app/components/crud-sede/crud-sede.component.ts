@@ -79,6 +79,7 @@ registra(){
            nombre:"",
            direccion:"",
            estado:1,
+           codigoPostal:"",
            pais:{
              idPais: -1
            }
@@ -115,6 +116,7 @@ actualiza(){
         nombre:"",
         direccion:"",
         estado:1,
+        codigoPostal:"",
         pais:{
           idPais: -1
         }
