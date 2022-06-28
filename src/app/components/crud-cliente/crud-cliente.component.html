@@ -25,6 +25,10 @@
                             <tr>
                                 <th style="width: 5%">#</th>
                                 <th style="width: 30%">Nombres</th>
+                                <th style="width: 30%">Apellidos</th>
+                                <th style="width: 30%">fechaNacimiento</th>
+                                <th style="width: 30%">Correo</th>
+                                <th style="width: 30%">Direccion</th>
                                 <th style="width: 10%">DNI</th>
                                 <th style="width: 10%">Estado</th>
                                 <th style="width: 31%">Ubigeo</th>
@@ -37,6 +41,10 @@
                             <tr *ngFor="let aux of clientes">
                                 <td>{{ aux.idCliente }}</td>
                                 <td>{{ aux.nombres }}</td>
+                                <td>{{ aux.apellidos }}</td>
+                                <td>{{ aux.fechaNacimiento }}</td>
+                                <td>{{ aux.correo }}</td>
+                                <td>{{ aux.direccion }}</td>
                                 <td>{{ aux.dni }}</td>
                                 <td>{{ aux.estado == 1 ? "Activo" : "Inactivo"}}</td>
                                 <td>{{ aux.ubigeo!.departamento }} - {{ aux.ubigeo!.provincia }} -{{ aux.ubigeo!.distrito }}</td>
@@ -85,6 +93,58 @@
                                             </div>   
                                             <div *ngIf="validaNombres.errors!">
                                                 El nombre completo es de 3 a 30 caracteres
+                                            </div> 
+                                         </div>   
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <label for="id_reg_apellidos">Apellidos</label>
+                                        <input [(ngModel)]="cliente.apellidos" type="text" placeholder="Ingrese el Apellido Completo" class="form-control" name="apellidos" 
+                                        id="id_reg_apellidos" #validaApellidos="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                        <div *ngIf="validaApellidos.invalid && (validaApellidos.dirty || validaApellidos.touched)" class="alert alert-danger">
+                                            <div *ngIf="validaApellidos.errors!">
+                                               Los apellidos es obligatorio
+                                            </div>   
+                                            <div *ngIf="validaApellidos.errors!">
+                                                Los apellidos completos es de 3 a 30 caracteres
+                                            </div> 
+                                         </div>   
+                                    </div>
+                                 
+                                    <div class="col-lg-8">
+                                        <label for="id_reg_fechanacimiento">Fecha de Nacimiento</label>
+                                        <input [(ngModel)]="cliente.fechaNacimiento" type="date" placeholder="Ingrese la fecha de nacimiento" class="form-control" name="fechaNacimiento"
+                                        id="id_reg_fechanacimiento" #validaFechaNacimiento="ngModel" />
+                                        <div *ngIf="validaFechaNacimiento.invalid && (validaFechaNacimiento.dirty || validaFechaNacimiento.touched)" class="alert alert-danger">
+                                             
+                                        
+                                         </div>   
+                                    </div>
+
+
+                             </div>
+                                    <div class="col-lg-4">
+                                        <label for="id_reg_correo">Correo</label>
+                                        <input [(ngModel)]="cliente.correo"  type="email" placeholder="Ingrese el correo" class="form-control" name="validaCorreo" 
+                                        id="id_reg_correo" #validaCorreo="ngModel" />
+                                        <div *ngIf="validaCorreo.invalid && (validaCorreo.dirty || validaCorreo.touched)" class="alert alert-danger">
+                                            <div *ngIf="validaCorreo.errors!">
+                                                El correo es obligatorio
+                                            </div>   
+                                            <div *ngIf="validaCorreo.errors!">
+                                                El correo es de 3 a 30 caracteres
+                                            </div> 
+                                         </div>   
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="id_reg_direccion">Direccion</label>
+                                        <input [(ngModel)]="cliente.direccion"  type="text" placeholder="Ingrese la direccion" class="form-control" name="validaDireccion" 
+                                        id="id_reg_direccion" #validaDireccion="ngModel" required pattern="[a-zA-Z ]{3,30}"/>
+                                        <div *ngIf="validaDireccion.invalid && (validaDireccion.dirty || validaDireccion.touched)" class="alert alert-danger">
+                                            <div *ngIf="validaDireccion.errors!">
+                                                La direccion es obligatorio
+                                            </div>   
+                                            <div *ngIf="validaDireccion.errors!">
+                                                La direccion es de 3 a 30 caracteres
                                             </div> 
                                          </div>   
                                     </div>
@@ -149,7 +209,7 @@
                                 
                                 </div>
 
-                        </div> 
+                         
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_reg_cerrar" style="width: 100px;">Close</button>
                             <button type="reset" class="btn btn-secondary" id="btn_reg_limpiar" style="width: 100px;">Limpiar</button>

@@ -26,6 +26,9 @@ distritos: Ubigeo[] = [];
 cliente: Cliente = { 
   idCliente:0,
   nombres:"",
+  apellidos: "",
+  correo: "",
+  direccion: "",
   dni:"",
   estado:1,
 
@@ -101,6 +104,9 @@ registra(){
  this.cliente = { 
   idCliente:0,
   nombres:"",
+  apellidos: "",
+  correo: "",
+  direccion: "",
   dni:"",
   estado:1,
   ubigeo:{
@@ -145,6 +151,9 @@ this.provincias = [];
 this.cliente = { 
   idCliente:0,
   nombres:"",
+  apellidos: "",
+  correo: "",
+  direccion: "",
   dni:"",
   estado:1,
   ubigeo:{
