@@ -43,7 +43,7 @@
                                 <td>{{ aux.fechaCreacion }}</td>
                                 <td>{{ aux.codigoPostal }}</td>
                                 <td>{{ aux.estado == 1 ? "Activo" : "Inactivo"}}</td>
-                                <td>{{ aux.pais!.idPais }}</td>
+                                <td>{{ aux.pais!.nombre }}</td>
                                 <td>
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="idEstado_{{ aux.idSede }}" [checked]="aux.estado==1?true:false" name="estado" (change)="actualizaEstado(aux)" />         
